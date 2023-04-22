@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="INV_SYS.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="logo" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">logo.png</Value>
+    </Setting>
+    <Setting Name="Conexion" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Data Source=localhost\SQLEXPRESS2019; Initial Catalog= SYSMOV_TM; Persist Security Info= true; User id=sa; Password=P@ssw0rd</Value>
+    </Setting>
+    <Setting Name="conexionExterna" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Data Source=localhost\SQLEXPRESS2019; Initial Catalog= INTER; Persist Security Info= true; User id=sa; Password=P@ssw0rd</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6E4EB44A-AF0A-4748-9604-5B4B373286FB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>INV_SYS</RootNamespace>
+    <AssemblyName>INV_SYS</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\netstandard2.0\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=110.2.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.110.2.0\lib\netstandard2.0\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.7.0.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.7.0.2\lib\netstandard2.0\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controladores\Admision\RAdmision.cs" />
+    <Compile Include="Controladores\Admision\RDetalleAdmision.cs" />
+    <Compile Include="Controladores\Admision\ROrdenExterna.cs" />
+    <Compile Include="Controladores\Admision\RTipoAdmision.cs" />
+    <Compile Include="Controladores\Caja\RCaja.cs" />
+    <Compile Include="Controladores\Caja\RConceptoCaja.cs" />
+    <Compile Include="Controladores\Caja\RMovimientoCaja.cs" />
+    <Compile Include="Controladores\Cliente\RCliente.cs" />
+    <Compile Include="Controladores\Cliente\RTipoCliente.cs" />
+    <Compile Include="Controladores\ConexionBD\RConexion.cs" />
+    <Compile Include="Controladores\ConexionBD\RConexionExterna.cs" />
+    <Compile Include="Controladores\Documento\RDetalleDocumento.cs" />
+    <Compile Include="Controladores\Documento\RDocumento.cs" />
+    <Compile Include="Controladores\Documento\RFormaPago.cs" />
+    <Compile Include="Controladores\Documento\RSerie.cs" />
+    <Compile Include="Controladores\Documento\RTipoDocumento.cs" />
+    <Compile Include="Controladores\Documento\RTipoPago.cs" />
+    <Compile Include="Controladores\FEL\clsXMLHTTP.cs" />
+    <Compile Include="Controladores\Gasto\RDetalleGasto.cs" />
+    <Compile Include="Controladores\Gasto\RGasto.cs" />
+    <Compile Include="Controladores\Parametros\RParametros.cs" />
+    <Compile Include="Controladores\Proveedor\RProveedor.cs" />
+    <Compile Include="Controladores\Sucursal\RSucursal.cs" />
+    <Compile Include="Controladores\Usuario\RUsuario.cs" />
+    <Compile Include="Formularios\Admision\frmAdmision.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Admision\frmAdmision.Designer.cs">
+      <DependentUpon>frmAdmision.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Caja\frmAperturaCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Caja\frmAperturaCaja.Designer.cs">
+      <DependentUpon>frmAperturaCaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Facturacion\frmDocumento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Facturacion\frmDocumento.Designer.cs">
+      <DependentUpon>frmDocumento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modelos\Admision\EDetalleAdmision.cs" />
+    <Compile Include="Modelos\Caja\ECaja.cs" />
+    <Compile Include="Modelos\Caja\EConceptoCaja.cs" />
+    <Compile Include="Modelos\Caja\EMovimientoCaja.cs" />
+    <Compile Include="Modelos\Cliente\ECliente.cs" />
+    <Compile Include="Modelos\Documento\EDetalleDocumento.cs" />
+    <Compile Include="Modelos\Documento\EDocumento.cs" />
+    <Compile Include="Modelos\Documento\EFormaPago.cs" />
+    <Compile Include="Modelos\Documento\ETipoDocumento.cs" />
+    <Compile Include="Modelos\Documento\ETipoPago.cs" />
+    <Compile Include="Modelos\Admision\EAdmision.cs" />
+    <Compile Include="Modelos\FEL\certificadorFEL.cs" />
+    <Compile Include="Modelos\Gasto\EDetalleGasto.cs" />
+    <Compile Include="Modelos\Gasto\EGasto.cs" />
+    <Compile Include="Modelos\Producto\EFabricante.cs" />
+    <Compile Include="Modelos\Producto\EFamilia.cs" />
+    <Compile Include="Modelos\Producto\EProducto.cs" />
+    <Compile Include="Modelos\Producto\ETipoProducto.cs" />
+    <Compile Include="Modelos\Proveedor\EProveedor.cs" />
+    <Compile Include="Modelos\Sucursal\ESucursal.cs" />
+    <Compile Include="Modelos\Admision\ETipoAdmision.cs" />
+    <Compile Include="Modelos\Usuario\EUsuario.cs" />
+    <Compile Include="Formularios\General\frmHome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\General\frmHome.Designer.cs">
+      <DependentUpon>frmHome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\General\frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\General\frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Formularios\Admision\frmAdmision.resx">
+      <DependentUpon>frmAdmision.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Caja\frmAperturaCaja.resx">
+      <DependentUpon>frmAperturaCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Facturacion\frmDocumento.resx">
+      <DependentUpon>frmDocumento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\General\frmHome.resx">
+      <DependentUpon>frmHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\General\frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_v2.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_v2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controladores\Medico\" />
+    <Folder Include="Modelos\Medico\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
