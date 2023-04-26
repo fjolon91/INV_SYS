@@ -102,7 +102,12 @@ namespace INV_SYS
 
         private void aperturarCajaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmAperturaCaja _frmAperturaCaja = new frmAperturaCaja(userid,"C");
+            gestionarCaja(userid, "A");
+        }
+
+        private void gestionarCaja(string userid, string accion)
+        {
+            frmAperturaCaja _frmAperturaCaja = new frmAperturaCaja(userid, accion);
             _frmAperturaCaja.ShowDialog(this);
             verificarCaja();
         }
@@ -440,9 +445,7 @@ namespace INV_SYS
 
         private void cerrarCajaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmAperturaCaja _frmAperturaCaja = new frmAperturaCaja(userid, "A");
-            _frmAperturaCaja.ShowDialog(this);
-            verificarCaja();
+            gestionarCaja(userid, "C");
         }
 
         private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
@@ -454,6 +457,11 @@ namespace INV_SYS
         {
             SucursalesForm sr = new SucursalesForm();
             sr.ShowDialog();
+        }
+
+        private void corteDeCajaToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            gestionarCaja(userid, "P");
         }
     }
 }

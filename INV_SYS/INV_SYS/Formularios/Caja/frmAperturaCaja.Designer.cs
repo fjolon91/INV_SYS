@@ -90,6 +90,10 @@ namespace INV_SYS
             this.label1 = new System.Windows.Forms.Label();
             this.btnAperturar = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
+            this.lblSaldo = new System.Windows.Forms.Label();
+            this.lblMontoCaja = new System.Windows.Forms.Label();
+            this.lblDiferencia = new System.Windows.Forms.Label();
+            this.lblMontoDiferencia = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -97,6 +101,10 @@ namespace INV_SYS
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblMontoDiferencia);
+            this.groupBox1.Controls.Add(this.lblDiferencia);
+            this.groupBox1.Controls.Add(this.lblMontoCaja);
+            this.groupBox1.Controls.Add(this.lblSaldo);
             this.groupBox1.Controls.Add(this.txtUsuario);
             this.groupBox1.Controls.Add(this.label21);
             this.groupBox1.Controls.Add(this.lblGranTotal);
@@ -115,7 +123,7 @@ namespace INV_SYS
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(468, 492);
+            this.groupBox1.Size = new System.Drawing.Size(468, 508);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Gestión de caja";
@@ -735,7 +743,7 @@ namespace INV_SYS
             // 
             // btnAperturar
             // 
-            this.btnAperturar.Location = new System.Drawing.Point(103, 512);
+            this.btnAperturar.Location = new System.Drawing.Point(103, 528);
             this.btnAperturar.Name = "btnAperturar";
             this.btnAperturar.Size = new System.Drawing.Size(130, 26);
             this.btnAperturar.TabIndex = 23;
@@ -745,7 +753,7 @@ namespace INV_SYS
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(239, 512);
+            this.btnSalir.Location = new System.Drawing.Point(239, 528);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(130, 26);
             this.btnSalir.TabIndex = 24;
@@ -753,11 +761,57 @@ namespace INV_SYS
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
+            // lblSaldo
+            // 
+            this.lblSaldo.AutoSize = true;
+            this.lblSaldo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSaldo.Location = new System.Drawing.Point(289, 463);
+            this.lblSaldo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSaldo.Name = "lblSaldo";
+            this.lblSaldo.Size = new System.Drawing.Size(72, 13);
+            this.lblSaldo.TabIndex = 36;
+            this.lblSaldo.Text = "Saldo Caja:";
+            this.lblSaldo.Visible = false;
+            // 
+            // lblMontoCaja
+            // 
+            this.lblMontoCaja.AutoSize = true;
+            this.lblMontoCaja.Location = new System.Drawing.Point(378, 463);
+            this.lblMontoCaja.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblMontoCaja.Name = "lblMontoCaja";
+            this.lblMontoCaja.Size = new System.Drawing.Size(39, 13);
+            this.lblMontoCaja.TabIndex = 37;
+            this.lblMontoCaja.Text = "Q 0.00";
+            this.lblMontoCaja.Visible = false;
+            // 
+            // lblDiferencia
+            // 
+            this.lblDiferencia.AutoSize = true;
+            this.lblDiferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDiferencia.Location = new System.Drawing.Point(289, 485);
+            this.lblDiferencia.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDiferencia.Name = "lblDiferencia";
+            this.lblDiferencia.Size = new System.Drawing.Size(69, 13);
+            this.lblDiferencia.TabIndex = 38;
+            this.lblDiferencia.Text = "Diferencia:";
+            this.lblDiferencia.Visible = false;
+            // 
+            // lblMontoDiferencia
+            // 
+            this.lblMontoDiferencia.AutoSize = true;
+            this.lblMontoDiferencia.Location = new System.Drawing.Point(378, 485);
+            this.lblMontoDiferencia.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblMontoDiferencia.Name = "lblMontoDiferencia";
+            this.lblMontoDiferencia.Size = new System.Drawing.Size(39, 13);
+            this.lblMontoDiferencia.TabIndex = 39;
+            this.lblMontoDiferencia.Text = "Q 0.00";
+            this.lblMontoDiferencia.Visible = false;
+            // 
             // frmAperturaCaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(494, 547);
+            this.ClientSize = new System.Drawing.Size(494, 566);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnAperturar);
             this.Controls.Add(this.groupBox1);
@@ -839,5 +893,9 @@ namespace INV_SYS
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Button btnAperturar;
         private System.Windows.Forms.Button btnSalir;
+        private System.Windows.Forms.Label lblMontoCaja;
+        private System.Windows.Forms.Label lblSaldo;
+        private System.Windows.Forms.Label lblMontoDiferencia;
+        private System.Windows.Forms.Label lblDiferencia;
     }
 }

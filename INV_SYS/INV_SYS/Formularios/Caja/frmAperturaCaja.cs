@@ -37,14 +37,86 @@ namespace INV_SYS
             DataTable dtInfoUsuario = RUsuario.verificarUsuario(userid);
             txtUsuario.Text = dtInfoUsuario.Rows[0]["nombre"].ToString();
             cargarCombos();
+
+        }
+
+        private void contabilizarCaja()
+        {
+            DateTime fechaApertura;
+            double ingresos;
+            double egresos;
+            double saldo;
+            DataTable dtFechaUltimaApertura = RMovimientoCaja.obtenerUltimaApertura(cmbCaja.SelectedValue.ToString(), DateTime.Now);
+            if (dtFechaUltimaApertura.Rows.Count > 0)
+            {
+                fechaApertura = Convert.ToDateTime(dtFechaUltimaApertura.Rows[0]["ultimaApertura"]);
+                DataTable dtTotalIngresos = RMovimientoCaja.totalIngresos(cmbCaja.SelectedValue.ToString(), fechaApertura);
+                if (dtTotalIngresos.Rows.Count > 0)
+                {
+                    ingresos = Convert.ToDouble(dtTotalIngresos.Rows[0]["totalIngresos"].ToString());
+                }
+                else
+                {
+                    ingresos = 0;
+                }
+
+                DataTable dtTotalEgresos = RMovimientoCaja.totalEgresos(cmbCaja.SelectedValue.ToString(), fechaApertura);
+                if (dtTotalEgresos.Rows.Count > 0)
+                {
+                    egresos = Convert.ToDouble(dtTotalEgresos.Rows[0]["totalEgresos"].ToString());
+                }
+                else
+                {
+                    egresos = 0;
+                }
+
+                saldo = ingresos - egresos;
+                lblSaldo.Visible = true;
+                lblMontoCaja.Visible = true;
+                lblMontoCaja.Text = saldo.ToString("C2");
+
+                if (lblGranTotal.Text.CompareTo(lblMontoCaja.Text) != 0)
+                {
+                    lblDiferencia.Visible = true;
+                    lblMontoDiferencia.Visible = true;
+                    double diff = saldo - granTotal;
+                    lblMontoDiferencia.Text = diff.ToString("C2");
+                }
+                else if (saldo == granTotal)
+                {
+                    lblDiferencia.Visible = false;
+                    lblMontoDiferencia.Visible = false;
+                    double sal = saldo - granTotal;
+                    lblMontoDiferencia.Text = sal.ToString("C2");
+
+                }
+                else if (saldo < granTotal)
+                {
+                    lblDiferencia.Visible = true;
+                    lblMontoDiferencia.Visible = true;
+                    double sal = saldo - granTotal;
+                    lblMontoDiferencia.Text = sal.ToString("C2");
+                }
+            }
         }
 
         public void cargarCombos()
         {
             switch (accion)
             {
-                //C=Cierre de caja | A: Apertura de caja 
+                //C=Cierre de caja | A: Apertura de caja | P: Corte de caja 
                 case "C":
+                    cmbSucursal.DataSource = RSucursal.listarSucursales();
+                    cmbSucursal.DisplayMember = "nombre";
+                    cmbSucursal.ValueMember = "sucursal";
+
+                    listarCajasXstatus("A");
+                    cmbConcepto.DataSource = RConceptoCaja.ListarConceptosCajaId("6");
+                    cmbConcepto.DisplayMember = "descripcion";
+                    cmbConcepto.ValueMember = "concepto";
+                    cmbConcepto.Enabled = false;
+                    break;
+                case "A":
                     cmbSucursal.DataSource = RSucursal.listarSucursales();
                     cmbSucursal.DisplayMember = "nombre";
                     cmbSucursal.ValueMember = "sucursal";
@@ -53,16 +125,14 @@ namespace INV_SYS
                     cmbConcepto.DataSource = RConceptoCaja.ListarConceptosCajaId("1");
                     cmbConcepto.DisplayMember = "descripcion";
                     cmbConcepto.ValueMember = "concepto";
-
-                    cmbConcepto.SelectedValue = 1;
                     cmbConcepto.Enabled = false;
                     break;
-                case "A":
+                case "P":
                     cmbSucursal.DataSource = RSucursal.listarSucursales();
                     cmbSucursal.DisplayMember = "nombre";
                     cmbSucursal.ValueMember = "sucursal";
                     listarCajasXstatus("A");
-                    cmbConcepto.DataSource = RConceptoCaja.ListarConceptosCajaId("6");
+                    cmbConcepto.DataSource = RConceptoCaja.ListarConceptosCajaId("7");
                     cmbConcepto.DisplayMember = "descripcion";
                     cmbConcepto.ValueMember = "concepto";
                     cmbConcepto.Enabled = false;
@@ -130,7 +200,6 @@ namespace INV_SYS
                 qtz1 = 1 * Convert.ToDouble(txt1Quetzal.Text);
                 lblTotal1Qtzl.Text = qtz1.ToString("C");
             }
-
             totalMonedas = cent05 + cent010 + cent025 +cent050 + qtz1;
             lblTotalBilletes.Text = totalBilletes.ToString("C");
             lblTotalMonedas.Text = totalMonedas.ToString("C");
@@ -210,7 +279,6 @@ namespace INV_SYS
             granTotal = totalBilletes + totalMonedas;
             lblGranTotal.Text = granTotal.ToString("C");
         }
-
 
         //OBSOLETO
         /*
@@ -368,10 +436,10 @@ namespace INV_SYS
         private void btnAperturar_Click(object sender, EventArgs e)
         {
             string status = "";
-            if (accion == "C")
-                status = "A";
-            if (accion == "A")
-                status = "C";                
+            if (accion.CompareTo("C")==0)
+                status = "C";
+            else
+                status = "A";                
             registrarMovimiento(status);
             this.Close();
         }
@@ -387,12 +455,21 @@ namespace INV_SYS
             if (System.Text.RegularExpressions.Regex.IsMatch(txtBoxSended.Text, "^[0-9]+$"))
             {
                 calcularBilletes();
+                if (accion.CompareTo("A") != 0)
+                {
+                    contabilizarCaja();
+                }
             }
             else
             {
                 txtBoxSended.Text = "0";
                 txtBoxSended.SelectAll();
                 calcularBilletes();
+
+                if(accion.CompareTo("A")!=0)
+                {
+                    contabilizarCaja();
+                }
             }
         }
 
@@ -402,12 +479,20 @@ namespace INV_SYS
             if (System.Text.RegularExpressions.Regex.IsMatch(txtBoxSended.Text, "^[0-9]+$"))
             {
                 calcularMonedas();
+                if (accion.CompareTo("A") != 0)
+                {
+                    contabilizarCaja();
+                }
             }
             else
             {
                 txtBoxSended.Text = "0";
                 txtBoxSended.SelectAll();
                 calcularMonedas();
+                if (accion.CompareTo("A") != 0)
+                {
+                    contabilizarCaja();
+                }
             }
         }
     }
