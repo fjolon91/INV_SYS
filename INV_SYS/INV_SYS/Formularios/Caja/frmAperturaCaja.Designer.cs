@@ -299,7 +299,7 @@ namespace INV_SYS
             this.txt200Qtzl.Name = "txt200Qtzl";
             this.txt200Qtzl.Size = new System.Drawing.Size(61, 20);
             this.txt200Qtzl.TabIndex = 7;
-            this.txt200Qtzl.TextChanged += new System.EventHandler(this.txt200Qtzl_TextChanged);
+            this.txt200Qtzl.TextChanged += new System.EventHandler(this.txtBilletes_textChanged);
             // 
             // txt100Qtz
             // 
@@ -318,7 +318,7 @@ namespace INV_SYS
             this.txt100Qtzl.Name = "txt100Qtzl";
             this.txt100Qtzl.Size = new System.Drawing.Size(61, 20);
             this.txt100Qtzl.TabIndex = 6;
-            this.txt100Qtzl.TextChanged += new System.EventHandler(this.txt100Qtzl_TextChanged);
+            this.txt100Qtzl.TextChanged += new System.EventHandler(this.txtBilletes_textChanged);
             // 
             // txt50Qtzl
             // 
@@ -327,7 +327,7 @@ namespace INV_SYS
             this.txt50Qtzl.Name = "txt50Qtzl";
             this.txt50Qtzl.Size = new System.Drawing.Size(61, 20);
             this.txt50Qtzl.TabIndex = 5;
-            this.txt50Qtzl.TextChanged += new System.EventHandler(this.txt50Qtzl_TextChanged);
+            this.txt50Qtzl.TextChanged += new System.EventHandler(this.txtBilletes_textChanged);
             // 
             // txt50QZT
             // 
@@ -356,7 +356,7 @@ namespace INV_SYS
             this.txt10Qtz.Name = "txt10Qtz";
             this.txt10Qtz.Size = new System.Drawing.Size(61, 20);
             this.txt10Qtz.TabIndex = 3;
-            this.txt10Qtz.TextChanged += new System.EventHandler(this.txt10Qtz_TextChanged);
+            this.txt10Qtz.TextChanged += new System.EventHandler(this.txtBilletes_textChanged);
             // 
             // label16
             // 
@@ -376,7 +376,7 @@ namespace INV_SYS
             this.txt20Qtz.Name = "txt20Qtz";
             this.txt20Qtz.Size = new System.Drawing.Size(61, 20);
             this.txt20Qtz.TabIndex = 4;
-            this.txt20Qtz.TextChanged += new System.EventHandler(this.txt20Qtz_TextChanged);
+            this.txt20Qtz.TextChanged += new System.EventHandler(this.txtBilletes_textChanged);
             // 
             // label17
             // 
@@ -405,8 +405,7 @@ namespace INV_SYS
             this.txt5Qtz.Name = "txt5Qtz";
             this.txt5Qtz.Size = new System.Drawing.Size(61, 20);
             this.txt5Qtz.TabIndex = 2;
-            this.txt5Qtz.TextChanged += new System.EventHandler(this.txt5Qtz_TextChanged);
-            this.txt5Qtz.Leave += new System.EventHandler(this.txt5Qtz_Leave);
+            this.txt5Qtz.TextChanged += new System.EventHandler(this.txtBilletes_textChanged);
             // 
             // label19
             // 
@@ -423,10 +422,9 @@ namespace INV_SYS
             this.txt1Qtz.Location = new System.Drawing.Point(59, 40);
             this.txt1Qtz.Margin = new System.Windows.Forms.Padding(4);
             this.txt1Qtz.Name = "txt1Qtz";
-            this.txt1Qtz.Size = new System.Drawing.Size(61, 20);
+            this.txt1Qtz.Size = new System.Drawing.Size(60, 20);
             this.txt1Qtz.TabIndex = 1;
-            this.txt1Qtz.TextChanged += new System.EventHandler(this.txt1Qtz_TextChanged);
-            this.txt1Qtz.Leave += new System.EventHandler(this.txt1Qtz_Leave);
+            this.txt1Qtz.TextChanged += new System.EventHandler(this.txtBilletes_textChanged);
             // 
             // groupBox2
             // 
@@ -553,8 +551,8 @@ namespace INV_SYS
             this.txt25Cent.Name = "txt25Cent";
             this.txt25Cent.Size = new System.Drawing.Size(61, 20);
             this.txt25Cent.TabIndex = 3;
-            this.txt25Cent.TextChanged += new System.EventHandler(this.txt25Cent_TextChanged);
-            this.txt25Cent.Leave += new System.EventHandler(this.txt25Cent_Leave);
+            this.txt25Cent.TextChanged += new System.EventHandler(this.txtMonedas_TextChanged);
+            this.txt25Cent.Leave += new System.EventHandler(this.txtMonedas_TextChanged);
             // 
             // label14
             // 
@@ -573,8 +571,8 @@ namespace INV_SYS
             this.txt50Cent.Name = "txt50Cent";
             this.txt50Cent.Size = new System.Drawing.Size(61, 20);
             this.txt50Cent.TabIndex = 4;
-            this.txt50Cent.TextChanged += new System.EventHandler(this.txt50Cent_TextChanged);
-            this.txt50Cent.Leave += new System.EventHandler(this.txt50Cent_Leave);
+            this.txt50Cent.TextChanged += new System.EventHandler(this.txtMonedas_TextChanged);
+            this.txt50Cent.Leave += new System.EventHandler(this.txtMonedas_TextChanged);
             // 
             // label12
             // 
@@ -595,8 +593,8 @@ namespace INV_SYS
             this.txt1Quetzal.Name = "txt1Quetzal";
             this.txt1Quetzal.Size = new System.Drawing.Size(61, 20);
             this.txt1Quetzal.TabIndex = 5;
-            this.txt1Quetzal.TextChanged += new System.EventHandler(this.txt1Quetzal_TextChanged);
-            this.txt1Quetzal.Leave += new System.EventHandler(this.txt1Quetzal_Leave);
+            this.txt1Quetzal.TextChanged += new System.EventHandler(this.txtMonedas_TextChanged);
+            this.txt1Quetzal.Leave += new System.EventHandler(this.txtMonedas_TextChanged);
             // 
             // label10
             // 
@@ -625,8 +623,8 @@ namespace INV_SYS
             this.txt10Cent.Name = "txt10Cent";
             this.txt10Cent.Size = new System.Drawing.Size(61, 20);
             this.txt10Cent.TabIndex = 2;
-            this.txt10Cent.TextChanged += new System.EventHandler(this.txt10Cent_TextChanged);
-            this.txt10Cent.Leave += new System.EventHandler(this.txt10Cent_Leave);
+            this.txt10Cent.TextChanged += new System.EventHandler(this.txtMonedas_TextChanged);
+            this.txt10Cent.Leave += new System.EventHandler(this.txtMonedas_TextChanged);
             // 
             // label2
             // 
@@ -645,8 +643,8 @@ namespace INV_SYS
             this.txt5Cent.Name = "txt5Cent";
             this.txt5Cent.Size = new System.Drawing.Size(61, 20);
             this.txt5Cent.TabIndex = 1;
-            this.txt5Cent.TextChanged += new System.EventHandler(this.txt5Cent_TextChanged);
-            this.txt5Cent.Leave += new System.EventHandler(this.txt5Cent_Leave);
+            this.txt5Cent.TextChanged += new System.EventHandler(this.txtMonedas_TextChanged);
+            this.txt5Cent.Leave += new System.EventHandler(this.txtMonedas_TextChanged);
             // 
             // label8
             // 

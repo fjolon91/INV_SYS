@@ -63,6 +63,16 @@ namespace INV_SYS.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap caja_registradora {
+            get {
+                object obj = ResourceManager.GetObject("caja-registradora", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logo_v2 {
             get {
                 object obj = ResourceManager.GetObject("logo_v2", resourceCulture);
@@ -76,6 +86,16 @@ namespace INV_SYS.Properties {
         internal static System.Drawing.Bitmap logo_v21 {
             get {
                 object obj = ResourceManager.GetObject("logo_v21", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap receipt_close {
+            get {
+                object obj = ResourceManager.GetObject("receipt_close", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

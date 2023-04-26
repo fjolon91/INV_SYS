@@ -102,6 +102,18 @@
     <Compile Include="Controladores\Proveedor\RProveedor.cs" />
     <Compile Include="Controladores\Sucursal\RSucursal.cs" />
     <Compile Include="Controladores\Usuario\RUsuario.cs" />
+    <Compile Include="Formularios\ABC\SucursalesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\ABC\SucursalesForm.Designer.cs">
+      <DependentUpon>SucursalesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\ABC\SucursalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\ABC\SucursalForm.Designer.cs">
+      <DependentUpon>SucursalForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Admision\frmAdmision.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,6 +168,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Formularios\ABC\SucursalesForm.resx">
+      <DependentUpon>SucursalesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\ABC\SucursalForm.resx">
+      <DependentUpon>SucursalForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Admision\frmAdmision.resx">
       <DependentUpon>frmAdmision.cs</DependentUpon>
     </EmbeddedResource>
@@ -204,6 +222,12 @@
   <ItemGroup>
     <Folder Include="Controladores\Medico\" />
     <Folder Include="Modelos\Medico\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\receipt_close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\caja-registradora.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

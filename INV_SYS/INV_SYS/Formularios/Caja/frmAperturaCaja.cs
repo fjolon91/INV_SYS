@@ -211,16 +211,14 @@ namespace INV_SYS
             lblGranTotal.Text = granTotal.ToString("C");
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-            crearAperturaCajar();
-        }
 
-        private void crearAperturaCajar()
-        {
-
-        }
-
+        //OBSOLETO
+        /*
+         * Se reemplazan por:
+         * 
+         ** TxtMonedas_TextChanged 
+         ** TxtBilletes_TextChanged
+         * 
         private void txt5Cent_Leave(object sender, EventArgs e)
         {
             calcularMonedas();
@@ -316,8 +314,17 @@ namespace INV_SYS
             calcularMonedas();
         }
 
+        */
+
         private void registrarMovimiento(string _status)
         {
+            try
+            {
+                calcularBilletes();
+                calcularMonedas();
+            }
+            catch { }
+
             EMovimientoCaja movCaja = new EMovimientoCaja();
             movCaja.caja = cmbCaja.SelectedValue.ToString();
             movCaja.concepto = cmbConcepto.SelectedValue.ToString();
@@ -353,7 +360,7 @@ namespace INV_SYS
                 eCaja.sucursal = cmbSucursal.SelectedValue.ToString();
                 eCaja.Pc = Environment.MachineName;
                 if(RCaja.actualizarStatusCaja(eCaja)>0)
-                    MessageBox.Show("Caja aperturada con éxito", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Caja " + (_status.CompareTo("C")==0?"cerrada":"aperturada") + " con éxito", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
                 MessageBox.Show("Ocurrio un error al aperturar caja", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -366,11 +373,42 @@ namespace INV_SYS
             if (accion == "A")
                 status = "C";                
             registrarMovimiento(status);
+            this.Close();
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Dispose();
+        }
+
+        private void txtBilletes_textChanged(object sender, EventArgs e)
+        {
+            var txtBoxSended = sender as TextBox;
+            if (System.Text.RegularExpressions.Regex.IsMatch(txtBoxSended.Text, "^[0-9]+$"))
+            {
+                calcularBilletes();
+            }
+            else
+            {
+                txtBoxSended.Text = "0";
+                txtBoxSended.SelectAll();
+                calcularBilletes();
+            }
+        }
+
+        private void txtMonedas_TextChanged(object sender, EventArgs e)
+        {
+            var txtBoxSended = sender as TextBox;
+            if (System.Text.RegularExpressions.Regex.IsMatch(txtBoxSended.Text, "^[0-9]+$"))
+            {
+                calcularMonedas();
+            }
+            else
+            {
+                txtBoxSended.Text = "0";
+                txtBoxSended.SelectAll();
+                calcularMonedas();
+            }
         }
     }
 }

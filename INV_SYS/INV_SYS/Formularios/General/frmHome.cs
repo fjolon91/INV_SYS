@@ -1,4 +1,5 @@
-﻿using System;
+﻿using INV_SYS.Formularios.ABC;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -48,10 +49,6 @@ namespace INV_SYS
             return estado;
         }
 
-        private void inicializar()
-        {
-            
-        }
         private void cargarLaboratorios()
         {
             DataTable dtOrdensLab = RAdmision.laboratorioXFacturar();
@@ -98,7 +95,7 @@ namespace INV_SYS
             this.Close();
         }
 
-        private void tsbCerrarSesion_Click(object sender, EventArgs e)
+        private void cerrarSesion()//tsbCerrarSesion_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -446,6 +443,17 @@ namespace INV_SYS
             frmAperturaCaja _frmAperturaCaja = new frmAperturaCaja(userid, "A");
             _frmAperturaCaja.ShowDialog(this);
             verificarCaja();
+        }
+
+        private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cerrarSesion();
+        }
+
+        private void verSucursalesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SucursalesForm sr = new SucursalesForm();
+            sr.ShowDialog();
         }
     }
 }
