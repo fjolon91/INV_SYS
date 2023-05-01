@@ -16,7 +16,7 @@ namespace INV_SYS
             using (SqlConnection cnn = RConexionExterna.Conectando(Properties.Settings.Default.conexionExterna))
             {
 
-                SqlCommand query = new SqlCommand(string.Format(@"SELECT distinct fechaRecepcion, TipoCliente, Sucursal,TipoOrden, orden,Nombre, Nombre,PrimerApellido,SegundoApellido,Sexo,FechaNacimiento,Cliente,TipoCliente,Paciente,Medico,NombreMedico
+                SqlCommand query = new SqlCommand(string.Format(@"SELECT distinct fechaRecepcion, TipoCliente, Sucursal,TipoOrden, orden,NombreCliente, Nombre,PrimerApellido,SegundoApellido,Sexo,FechaNacimiento,Cliente,descripcion,Paciente,Medico,NombreMedico
                                                                     FROM DATA "), cnn);
 
                 DataTable dt = new DataTable();

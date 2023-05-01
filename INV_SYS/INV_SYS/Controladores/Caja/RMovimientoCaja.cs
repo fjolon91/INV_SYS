@@ -92,8 +92,8 @@ namespace INV_SYS
         {
             using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
             {
-                SqlCommand query = new SqlCommand(string.Format(@"SELECTSUM(MontoEfectivo)totalIngresos FROM MOVIMIENTO_CAJA 
-                                                                WHERE fechaRegistro>='" + fechaUltima.ToString("yyyyMMdd 00:00:00") + "' AND concepto='1' AND caja='" + caja + "'"), cnn);
+                SqlCommand query = new SqlCommand(string.Format(@"SELECT SUM(MontoEfectivo)totalIngresos FROM MOVIMIENTO_CAJA 
+                                                                WHERE fechaRegistro>='" + fechaUltima.ToString("yyyyMMdd HH:mm:ss") + "' AND operacion='1' AND caja='" + caja + "'"), cnn);
                 DataTable dt = new DataTable();
                 dt.Load(query.ExecuteReader());
                 return dt;
@@ -104,8 +104,8 @@ namespace INV_SYS
         {
             using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
             {
-                SqlCommand query = new SqlCommand(string.Format(@"SELECTSUM(MontoEfectivo)totalIngresos FROM MOVIMIENTO_CAJA 
-                                                                WHERE fechaRegistro>='" + fechaUltima.ToString("yyyyMMdd 00:00:00") + "' AND concepto='-1' AND caja='" + caja + "'"), cnn);
+                SqlCommand query = new SqlCommand(string.Format(@"SELECT SUM(MontoEfectivo)totalEgresos  FROM MOVIMIENTO_CAJA 
+                                                                WHERE fechaRegistro>='" + fechaUltima.ToString("yyyyMMdd HH:mm:ss") + "' AND operacion='-1' AND caja='" + caja + "'"), cnn);
                 DataTable dt = new DataTable();
                 dt.Load(query.ExecuteReader());
                 return dt;

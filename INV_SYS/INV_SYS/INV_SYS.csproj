@@ -98,7 +98,10 @@
     <Compile Include="Controladores\FEL\clsXMLHTTP.cs" />
     <Compile Include="Controladores\Gasto\RDetalleGasto.cs" />
     <Compile Include="Controladores\Gasto\RGasto.cs" />
+    <Compile Include="Controladores\Medico\RMedico.cs" />
+    <Compile Include="Controladores\Paciente\RPaciente.cs" />
     <Compile Include="Controladores\Parametros\RParametros.cs" />
+    <Compile Include="Controladores\Producto\RProducto.cs" />
     <Compile Include="Controladores\Proveedor\RProveedor.cs" />
     <Compile Include="Controladores\Sucursal\RSucursal.cs" />
     <Compile Include="Controladores\Usuario\RUsuario.cs" />
@@ -137,6 +140,7 @@
     <Compile Include="Modelos\Caja\EConceptoCaja.cs" />
     <Compile Include="Modelos\Caja\EMovimientoCaja.cs" />
     <Compile Include="Modelos\Cliente\ECliente.cs" />
+    <Compile Include="Modelos\Cliente\ETipoCliente.cs" />
     <Compile Include="Modelos\Documento\EDetalleDocumento.cs" />
     <Compile Include="Modelos\Documento\EDocumento.cs" />
     <Compile Include="Modelos\Documento\EFormaPago.cs" />
@@ -146,6 +150,8 @@
     <Compile Include="Modelos\FEL\certificadorFEL.cs" />
     <Compile Include="Modelos\Gasto\EDetalleGasto.cs" />
     <Compile Include="Modelos\Gasto\EGasto.cs" />
+    <Compile Include="Modelos\Medico\EMedico.cs" />
+    <Compile Include="Modelos\Paciente\Paciente.cs" />
     <Compile Include="Modelos\Producto\EFabricante.cs" />
     <Compile Include="Modelos\Producto\EFamilia.cs" />
     <Compile Include="Modelos\Producto\EProducto.cs" />
@@ -219,10 +225,7 @@
   <ItemGroup>
     <None Include="Resources\logo_v2.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controladores\Medico\" />
-    <Folder Include="Modelos\Medico\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\receipt_close.png" />
   </ItemGroup>

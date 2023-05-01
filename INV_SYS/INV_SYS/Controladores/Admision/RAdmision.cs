@@ -60,7 +60,8 @@ namespace INV_SYS
                                                                                     INNER JOIN GENERO G ON G.sexo = a.sexo
                                                                                     INNER JOIN ESPECIALIDAD E ON E.especialidad = A.especialidad
                                                                                     INNER JOIN TIPO_PACIENTE CTP ON CTP.tipoPaciente = A.tipoPaciente                                                                                    
-                                                                                    WHERE A.Especialidad ='LABO' AND A.status<>'F' GROUP BY A.Admision,A.tipoAdmision, A.FechaRecepcion,E.especialidad,A.sucursal, E.descripcion ,CTP.tipoPaciente, CTP.descripcion,A.paciente, A.nombre,A.fechaNacimiento,G.descripcion ,A.Medico, A.status"), cnn);
+                                                                                    WHERE A.Especialidad ='LABO' AND A.status<>'F' GROUP BY A.Admision,A.tipoAdmision, A.FechaRecepcion,E.especialidad,A.sucursal, E.descripcion ,CTP.tipoPaciente, CTP.descripcion,A.paciente, A.nombre,A.fechaNacimiento,G.descripcion ,A.Medico, A.status
+                                                                                    ORDER BY A.FechaRecepcion, A.tipoAdminision, A.admision"), cnn);
 
                 DataTable dt = new DataTable();
                 dt.Load(query.ExecuteReader());

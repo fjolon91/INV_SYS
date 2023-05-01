@@ -394,13 +394,48 @@ namespace INV_SYS
                     adm.nombre = dtOrdenLab.Rows[r]["Nombre"].ToString()+" "+ dtOrdenLab.Rows[r]["PrimerApellido"].ToString()+" "+ dtOrdenLab.Rows[r]["SegundoApellido"].ToString(); ;
                     adm.sexo = dtOrdenLab.Rows[r]["Sexo"].ToString();
                     adm.fechaNacimiento = Convert.ToDateTime(dtOrdenLab.Rows[r]["FechaNacimiento"].ToString());
-                    adm.medico = dtOrdenLab.Rows[r]["Medico"].ToString(); //
-                    adm.nombreMedico = dtOrdenLab.Rows[r]["NombreMedico"].ToString();//
+                    adm.medico = dtOrdenLab.Rows[r]["Medico"].ToString(); 
+                    adm.nombreMedico = dtOrdenLab.Rows[r]["NombreMedico"].ToString();
+
+                    DataTable dtTipoCliente = RTipoCliente.ListarTipoClienteId(dtOrdenLab.Rows[r]["tipoCliente"].ToString());
+                    if (dtTipoCliente.Rows.Count == 0)
+                    {
+                        ETipoCliente eTipoCliente = new ETipoCliente();
+                        eTipoCliente.tipoCliente = dtOrdenLab.Rows[r]["tipoCliente"].ToString();
+                        eTipoCliente.descripcion = dtOrdenLab.Rows[r]["descripcion"].ToString();
+                        eTipoCliente.orden = 99;
+                        eTipoCliente.status = true;
+                        eTipoCliente.descuento = 0;
+                        RTipoCliente.crearTipoCliente(eTipoCliente);
+                    }
+
+                    DataTable dtCliente = RCliente.verificarCliente(dtOrdenLab.Rows[r]["cliente"].ToString());
+                    if (dtCliente.Rows.Count == 0)
+                    {
+                        ECliente ecliente = new ECliente();
+                        ecliente.cliente = dtOrdenLab.Rows[r]["cliente"].ToString();
+                        ecliente.codigoAlterno = ecliente.cliente;
+                        ecliente.nombre = dtOrdenLab.Rows[r]["nombreCliente"].ToString();
+                        ecliente.tipoCliente = dtOrdenLab.Rows[r]["tipoCliente"].ToString();
+                        RCliente.crearCliente(ecliente);
+                    }
+
                     if(String.IsNullOrEmpty(adm.medico))
                     {
                         adm.medico = "0";
                         adm.nombre = "A QUIERN INTERESE";
                     }
+                    DataTable dtMedicos = RMedico.buscarMedico(dtOrdenLab.Rows[r]["Medico"].ToString());
+                    if (dtMedicos.Rows.Count == 0)
+                    {
+                        EMedico emedico = new EMedico();
+                        emedico.medico = dtOrdenLab.Rows[r]["Medico"].ToString();
+                        emedico.nombre = dtOrdenLab.Rows[r]["nombreMedico"].ToString();
+                        emedico.comision = 0;
+                        emedico.status = true;
+                        RMedico.crearMedico(emedico);
+                    }
+
                     adm.cliente = dtOrdenLab.Rows[r]["Cliente"].ToString();
                     adm.tipoCliente = dtOrdenLab.Rows[r]["TipoCliente"].ToString();
                     adm.sucursal = dtOrdenLab.Rows[r]["Sucursal"].ToString();
@@ -426,8 +461,34 @@ namespace INV_SYS
                                     det.servicio = dtDetalle.Rows[j]["CodigoExamen"].ToString();
                                     det.descripcion = dtDetalle.Rows[j]["Examen"].ToString();
                                     det.precio = dtDetalle.Rows[j]["Precio"].ToString();
-                                    RDetalleAdmision.crearDetalleAdmision(det);
 
+                                    DataTable dtProducto = RProducto.buscarProducto(det.servicio);
+                                    EProducto eproducto = new EProducto();
+                                    if (dtProducto.Rows.Count==0)
+                                    {                                        
+                                        eproducto.producto = det.servicio;
+                                        eproducto.descripcion = det.descripcion;
+                                        eproducto.proveedor = "N/A";
+                                        eproducto.serie = false;
+                                        eproducto.fechaCreacion = DateTime.Now;
+                                        eproducto.precioCosto = 0;
+                                        eproducto.precioVenta = Convert.ToDouble(det.precio);
+                                        eproducto.status = true;
+                                        eproducto.categoria = "S";
+                                        eproducto.fabricante = "OTR";
+                                        eproducto.lote = false;
+                                        eproducto.orden = 99;
+                                        eproducto.activarCobro = true;
+                                        RProducto.agregarProducto(eproducto);
+                                    }
+                                    else
+                                    {
+                                        eproducto.producto = det.servicio;
+                                        eproducto.descripcion = det.descripcion;
+                                        eproducto.precioVenta = Convert.ToDouble(det.precio);
+                                        RProducto.actualizarProducto(eproducto);
+                                    }
+                                    RDetalleAdmision.crearDetalleAdmision(det);
                                 }
                                 ROrdenExterna.eliminarOrden(adm.tipoAdmision, adm.Admision, adm.sucursal);
                             }

@@ -33,5 +33,31 @@ namespace INV_SYS
                 return dt;
             }
         }
+
+        public static int crearTipoCliente(ETipoCliente cliente)
+        {
+            int retorno;
+            if (String.IsNullOrEmpty(cliente.tipoCliente))
+                cliente.tipoCliente = "DEFAULT";
+            using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
+            {
+                SqlCommand query = new SqlCommand(string.Format(@"INSERT INTO [dbo].[TIPO_CLIENTE]
+                                                                                       ([tipocliente]
+                                                                                       ,[descripcion]
+                                                                                       ,[descuento]
+                                                                                       ,[orden]
+                                                                                       ,[vigente])
+                                                                                 VALUES
+                                                                                       ('" + cliente.tipoCliente + "'" +
+                                                                                       ",'" + cliente.descuento + "'" +
+                                                                                       ",'" + cliente.descuento + "'" +
+                                                                                       ", '" + cliente.orden + "'" +
+                                                                                       ",'" + cliente.status + "')"), cnn);
+                retorno = query.ExecuteNonQuery();
+                cnn.Close();
+            }
+
+            return retorno;
+        }
     }
 }
