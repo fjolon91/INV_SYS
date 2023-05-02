@@ -42,6 +42,8 @@ namespace INV_SYS
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmInvSys));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.cajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aperturarCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cerrarCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.corteDeCajaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.facturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generarFacturaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,7 +69,9 @@ namespace INV_SYS
             this.sesiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tsFastAccessTools = new System.Windows.Forms.ToolStrip();
+            this.tsbAperturarCaja = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbCerrarSesion = new System.Windows.Forms.ToolStripButton();
             this.tmrData = new System.Windows.Forms.Timer(this.components);
             this.tpEgresos = new System.Windows.Forms.TabPage();
             this.panel8 = new System.Windows.Forms.Panel();
@@ -112,7 +116,7 @@ namespace INV_SYS
             this.lblTituloInsituciones = new System.Windows.Forms.Label();
             this.lblFechaInicialFactura = new System.Windows.Forms.Label();
             this.lblFechaFinalFactura = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnInfoInstituciones = new System.Windows.Forms.Button();
             this.lblInstitucionFact = new System.Windows.Forms.Label();
             this.cmbClientes = new System.Windows.Forms.ComboBox();
             this.dtpFechaInicial = new System.Windows.Forms.DateTimePicker();
@@ -166,10 +170,6 @@ namespace INV_SYS
             this.btnVerDetalleFactura = new System.Windows.Forms.Button();
             this.tbcGeneral = new System.Windows.Forms.TabControl();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.tsbAperturarCaja = new System.Windows.Forms.ToolStripButton();
-            this.tsbCerrarSesion = new System.Windows.Forms.ToolStripButton();
-            this.aperturarCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cerrarCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tsFastAccessTools.SuspendLayout();
             this.tpEgresos.SuspendLayout();
@@ -222,6 +222,22 @@ namespace INV_SYS
             this.cajaToolStripMenuItem.Name = "cajaToolStripMenuItem";
             this.cajaToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
             this.cajaToolStripMenuItem.Text = "Caja";
+            // 
+            // aperturarCajaToolStripMenuItem
+            // 
+            this.aperturarCajaToolStripMenuItem.Image = global::INV_SYS.Properties.Resources.caja_registradora;
+            this.aperturarCajaToolStripMenuItem.Name = "aperturarCajaToolStripMenuItem";
+            this.aperturarCajaToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.aperturarCajaToolStripMenuItem.Text = "Aperturar caja";
+            this.aperturarCajaToolStripMenuItem.Click += new System.EventHandler(this.aperturarCajaToolStripMenuItem_Click);
+            // 
+            // cerrarCajaToolStripMenuItem
+            // 
+            this.cerrarCajaToolStripMenuItem.Image = global::INV_SYS.Properties.Resources.receipt_close;
+            this.cerrarCajaToolStripMenuItem.Name = "cerrarCajaToolStripMenuItem";
+            this.cerrarCajaToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.cerrarCajaToolStripMenuItem.Text = "Cerrar caja";
+            this.cerrarCajaToolStripMenuItem.Click += new System.EventHandler(this.cerrarCajaToolStripMenuItem_Click);
             // 
             // corteDeCajaToolStripMenuItem1
             // 
@@ -295,19 +311,19 @@ namespace INV_SYS
             this.crearSucursalToolStripMenuItem,
             this.verSucursalesToolStripMenuItem});
             this.sucursalesToolStripMenuItem.Name = "sucursalesToolStripMenuItem";
-            this.sucursalesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sucursalesToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.sucursalesToolStripMenuItem.Text = "Sucursales";
             // 
             // crearSucursalToolStripMenuItem
             // 
             this.crearSucursalToolStripMenuItem.Name = "crearSucursalToolStripMenuItem";
-            this.crearSucursalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.crearSucursalToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.crearSucursalToolStripMenuItem.Text = "Crear sucursal";
             // 
             // verSucursalesToolStripMenuItem
             // 
             this.verSucursalesToolStripMenuItem.Name = "verSucursalesToolStripMenuItem";
-            this.verSucursalesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.verSucursalesToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.verSucursalesToolStripMenuItem.Text = "Sucursales";
             this.verSucursalesToolStripMenuItem.Click += new System.EventHandler(this.verSucursalesToolStripMenuItem_Click);
             // 
@@ -317,7 +333,7 @@ namespace INV_SYS
             this.crearUsuarioToolStripMenuItem,
             this.modificarUsuarioToolStripMenuItem});
             this.usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.usuariosToolStripMenuItem.Text = "Usuarios";
             // 
             // crearUsuarioToolStripMenuItem
@@ -337,7 +353,7 @@ namespace INV_SYS
             this.cajaToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.crearCajaNuevaToolStripMenuItem});
             this.cajaToolStripMenuItem1.Name = "cajaToolStripMenuItem1";
-            this.cajaToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.cajaToolStripMenuItem1.Size = new System.Drawing.Size(129, 22);
             this.cajaToolStripMenuItem1.Text = "Caja";
             // 
             // crearCajaNuevaToolStripMenuItem
@@ -354,7 +370,7 @@ namespace INV_SYS
             this.tiposDeCortesParcialesToolStripMenuItem,
             this.tiposDeEgresosToolStripMenuItem});
             this.catálogosToolStripMenuItem.Name = "catálogosToolStripMenuItem";
-            this.catálogosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.catálogosToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.catálogosToolStripMenuItem.Text = "Catálogos";
             // 
             // institucionesToolStripMenuItem
@@ -411,10 +427,31 @@ namespace INV_SYS
             this.tsFastAccessTools.TabIndex = 9;
             this.tsFastAccessTools.Text = "Herramientas";
             // 
+            // tsbAperturarCaja
+            // 
+            this.tsbAperturarCaja.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbAperturarCaja.Image = global::INV_SYS.Properties.Resources.caja_registradora;
+            this.tsbAperturarCaja.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbAperturarCaja.Name = "tsbAperturarCaja";
+            this.tsbAperturarCaja.Size = new System.Drawing.Size(24, 24);
+            this.tsbAperturarCaja.Text = "Aperturar caja";
+            this.tsbAperturarCaja.Click += new System.EventHandler(this.aperturarCajaToolStripMenuItem_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            // 
+            // tsbCerrarSesion
+            // 
+            this.tsbCerrarSesion.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbCerrarSesion.Image = global::INV_SYS.Properties.Resources.receipt_close;
+            this.tsbCerrarSesion.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbCerrarSesion.Name = "tsbCerrarSesion";
+            this.tsbCerrarSesion.Size = new System.Drawing.Size(24, 24);
+            this.tsbCerrarSesion.Text = "tsbCerrarCaja";
+            this.tsbCerrarSesion.ToolTipText = "Cerrar caja";
+            this.tsbCerrarSesion.Click += new System.EventHandler(this.cerrarCajaToolStripMenuItem_Click);
             // 
             // tmrData
             // 
@@ -837,7 +874,7 @@ namespace INV_SYS
             this.panel6.Controls.Add(this.lblTituloInsituciones);
             this.panel6.Controls.Add(this.lblFechaInicialFactura);
             this.panel6.Controls.Add(this.lblFechaFinalFactura);
-            this.panel6.Controls.Add(this.button1);
+            this.panel6.Controls.Add(this.btnInfoInstituciones);
             this.panel6.Controls.Add(this.lblInstitucionFact);
             this.panel6.Controls.Add(this.cmbClientes);
             this.panel6.Controls.Add(this.dtpFechaInicial);
@@ -876,14 +913,15 @@ namespace INV_SYS
             this.lblFechaFinalFactura.TabIndex = 1;
             this.lblFechaFinalFactura.Text = "Fecha final:";
             // 
-            // button1
+            // btnInfoInstituciones
             // 
-            this.button1.Location = new System.Drawing.Point(499, 164);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(161, 29);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Ver información";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnInfoInstituciones.Location = new System.Drawing.Point(499, 164);
+            this.btnInfoInstituciones.Name = "btnInfoInstituciones";
+            this.btnInfoInstituciones.Size = new System.Drawing.Size(161, 29);
+            this.btnInfoInstituciones.TabIndex = 6;
+            this.btnInfoInstituciones.Text = "Ver información";
+            this.btnInfoInstituciones.UseVisualStyleBackColor = true;
+            this.btnInfoInstituciones.Click += new System.EventHandler(this.btnInfoInstituciones_Click);
             // 
             // lblInstitucionFact
             // 
@@ -902,6 +940,7 @@ namespace INV_SYS
             this.cmbClientes.Name = "cmbClientes";
             this.cmbClientes.Size = new System.Drawing.Size(456, 21);
             this.cmbClientes.TabIndex = 5;
+            this.cmbClientes.SelectedIndexChanged += new System.EventHandler(this.cmbClientes_SelectedIndexChanged);
             // 
             // dtpFechaInicial
             // 
@@ -1480,43 +1519,6 @@ namespace INV_SYS
             this.panel3.Size = new System.Drawing.Size(1414, 623);
             this.panel3.TabIndex = 10;
             // 
-            // tsbAperturarCaja
-            // 
-            this.tsbAperturarCaja.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbAperturarCaja.Image = global::INV_SYS.Properties.Resources.caja_registradora;
-            this.tsbAperturarCaja.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbAperturarCaja.Name = "tsbAperturarCaja";
-            this.tsbAperturarCaja.Size = new System.Drawing.Size(24, 24);
-            this.tsbAperturarCaja.Text = "Aperturar caja";
-            this.tsbAperturarCaja.Click += new System.EventHandler(this.aperturarCajaToolStripMenuItem_Click);
-            // 
-            // tsbCerrarSesion
-            // 
-            this.tsbCerrarSesion.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbCerrarSesion.Image = global::INV_SYS.Properties.Resources.receipt_close;
-            this.tsbCerrarSesion.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbCerrarSesion.Name = "tsbCerrarSesion";
-            this.tsbCerrarSesion.Size = new System.Drawing.Size(24, 24);
-            this.tsbCerrarSesion.Text = "tsbCerrarCaja";
-            this.tsbCerrarSesion.ToolTipText = "Cerrar caja";
-            this.tsbCerrarSesion.Click += new System.EventHandler(this.cerrarCajaToolStripMenuItem_Click);
-            // 
-            // aperturarCajaToolStripMenuItem
-            // 
-            this.aperturarCajaToolStripMenuItem.Image = global::INV_SYS.Properties.Resources.caja_registradora;
-            this.aperturarCajaToolStripMenuItem.Name = "aperturarCajaToolStripMenuItem";
-            this.aperturarCajaToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.aperturarCajaToolStripMenuItem.Text = "Aperturar caja";
-            this.aperturarCajaToolStripMenuItem.Click += new System.EventHandler(this.aperturarCajaToolStripMenuItem_Click);
-            // 
-            // cerrarCajaToolStripMenuItem
-            // 
-            this.cerrarCajaToolStripMenuItem.Image = global::INV_SYS.Properties.Resources.receipt_close;
-            this.cerrarCajaToolStripMenuItem.Name = "cerrarCajaToolStripMenuItem";
-            this.cerrarCajaToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.cerrarCajaToolStripMenuItem.Text = "Cerrar caja";
-            this.cerrarCajaToolStripMenuItem.Click += new System.EventHandler(this.cerrarCajaToolStripMenuItem_Click);
-            // 
             // frmInvSys
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1619,7 +1621,7 @@ namespace INV_SYS
         private System.Windows.Forms.TabPage tpInstituciones;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblTituloInsituciones;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnInfoInstituciones;
         private System.Windows.Forms.ComboBox cmbClientes;
         private System.Windows.Forms.DateTimePicker dtpFechaFinal;
         private System.Windows.Forms.DateTimePicker dtpFechaInicial;

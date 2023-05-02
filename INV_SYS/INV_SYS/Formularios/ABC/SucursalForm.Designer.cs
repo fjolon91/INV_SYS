@@ -82,6 +82,7 @@ namespace INV_SYS.Formularios.ABC
             // chkUso
             // 
             this.chkUso.AutoSize = true;
+            this.chkUso.Enabled = false;
             this.chkUso.Location = new System.Drawing.Point(379, 233);
             this.chkUso.Name = "chkUso";
             this.chkUso.Size = new System.Drawing.Size(45, 17);

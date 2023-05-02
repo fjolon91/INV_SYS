@@ -24,10 +24,19 @@ namespace INV_SYS.Formularios.ABC
             if(dtSucursales != null)
             {
                 dgSucursales.DataSource = dtSucursales;
-                dgSucursales.Columns.Add("modificar", "Modificar");
+                //dgSucursales.Columns.Add("modificar", "Modificar");
 
             }
         }
 
+        private void dgSucursales_DoubleClick(object sender, EventArgs e)
+        {
+            var filaSeleccionada = dgSucursales.CurrentCell.RowIndex;
+            var sucursalSeleccionada = dgSucursales.Rows[filaSeleccionada].Cells["sucursal"].Value;
+            MessageBox.Show(sucursalSeleccionada.ToString());
+
+            SucursalForm sucursal = new SucursalForm(sucursalSeleccionada.ToString());
+            sucursal.Show();
+        }
     }
 }

@@ -410,5 +410,12 @@ namespace INV_SYS
                 calcularMonedas();
             }
         }
+
+        private void cmbSucursal_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmbCaja.DataSource = RCaja.listarCajasSucursal(cmbSucursal.SelectedValue.ToString());
+            cmbCaja.DisplayMember = "Descripcion";
+            cmbCaja.ValueMember = "caja";
+        }
     }
 }

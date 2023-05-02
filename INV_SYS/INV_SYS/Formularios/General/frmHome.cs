@@ -455,5 +455,25 @@ namespace INV_SYS
             SucursalesForm sr = new SucursalesForm();
             sr.ShowDialog();
         }
+
+        private void cmbClientes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbClientes.SelectedIndex > 0)
+            {
+
+            }
+        }
+
+        private void btnInfoInstituciones_Click(object sender, EventArgs e)
+        {
+            DataTable dtInstituciones =
+            RAdmision.listaFacturasPendientesInstitucion(cmbClientes.SelectedItem.ToString(), dtpFechaInicial.Value.ToString("yyyy-mm-dd HH:mm:ss"), dtpFechaFinal.Value.ToString("yyyy-mm-dd HH:mm:ss"));
+
+            if(dtInstituciones!= null && dtInstituciones.Rows.Count>0)
+            {
+
+            }
+
+        }
     }
 }

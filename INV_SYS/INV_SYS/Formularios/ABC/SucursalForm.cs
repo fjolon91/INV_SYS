@@ -12,9 +12,12 @@ namespace INV_SYS.Formularios.ABC
 {
     public partial class SucursalForm : Form
     {
-        public SucursalForm()
+
+        private string _idSucursal;
+        public SucursalForm(string idSucursal)
         {
             InitializeComponent();
+            _idSucursal = idSucursal;
         }
 
         private void SucursalForm_Load(object sender, EventArgs e)

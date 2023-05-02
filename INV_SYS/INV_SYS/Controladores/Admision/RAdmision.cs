@@ -96,6 +96,39 @@ namespace INV_SYS
             }
         }
 
+        public static DataTable listaFacturasPendientesInstitucion(string cliente, string fechaInicio, string fechaFin)
+        {
+
+
+            using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
+            {
+
+                SqlCommand query = new SqlCommand(string.Format(@"SELECT S1.tipoAdmision, S1.NIT, S1.NOMBRECLIENTE, S1.direccion, S1.EMAIL,
+	                                                                    S1.descripcion AS PRODUCTO,
+	                                                                    SUM(S1.cantidad) AS CANTIDAD,
+	                                                                    SUM(S1.ST) AS SUBTOTAL
+                                                                    FROM (
+	                                                                    SELECT A.tipoAdmision, C.CLIENTE AS NIT, ISNULL(C.nombre,'') AS NOMBRECLIENTE, C.direccion, C.Email,
+		                                                                    DA.descripcion, DA.cantidad, DA.precio,
+		                                                                    (DA.cantidad * DA.precio) AS ST
+	                                                                    FROM ADMISION A
+		                                                                    INNER JOIN DETALLE_ADMISION DA ON A.tipoAdmision = DA.tipoAdmision AND A.admision = DA.admision
+		                                                                    LEFT JOIN CLIENTE C ON A.tipoCliente = C.tipoCliente AND A.cliente = C.cliente
+	                                                                    WHERE A.tipoAdmision ='1'
+		                                                                    AND A.fechaRecepcion BETWEEN '" + fechaInicio +"' AND '" + fechaFin + "' " +		                                                                    --AND A.status = 1
+		                                                                    "AND A.cliente = '" + cliente + "' " +
+                                                                            "AND A.Especialidad ='LABO' " +
+                                                                            "--AND D_A.status = 1 " +
+                                                                            ") AS S1 " +
+                                                                    "GROUP BY S1.tipoAdmision, S1.NIT, S1.NOMBRECLIENTE, S1.direccion, S1.EMAIL, " +
+                                                                        "S1.descripcion "), cnn);
+
+                DataTable dt = new DataTable();
+                dt.Load(query.ExecuteReader());
+                return dt;
+            }
+        }
+
 
         public static DataTable verificarAdmision(string No, string tipo,string especialidad, string sucursal)
         {

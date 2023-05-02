@@ -31,13 +31,16 @@ namespace INV_SYS.Formularios.ABC
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgSucursales = new System.Windows.Forms.DataGridView();
-            this.editar = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgSucursales)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.statusStrip1);
             this.panel1.Controls.Add(this.dgSucursales);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -50,23 +53,30 @@ namespace INV_SYS.Formularios.ABC
             this.dgSucursales.AllowUserToAddRows = false;
             this.dgSucursales.AllowUserToDeleteRows = false;
             this.dgSucursales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgSucursales.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.editar});
             this.dgSucursales.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgSucursales.Location = new System.Drawing.Point(0, 0);
             this.dgSucursales.Name = "dgSucursales";
             this.dgSucursales.ReadOnly = true;
+            this.dgSucursales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgSucursales.Size = new System.Drawing.Size(744, 479);
             this.dgSucursales.TabIndex = 0;
+            this.dgSucursales.DoubleClick += new System.EventHandler(this.dgSucursales_DoubleClick);
             // 
-            // editar
+            // statusStrip1
             // 
-            this.editar.HeaderText = "Editar";
-            this.editar.Name = "editar";
-            this.editar.ReadOnly = true;
-            this.editar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.editar.Text = "Editar";
-            this.editar.ToolTipText = "Modificar sucursal";
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 457);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(744, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(121, 17);
+            this.toolStripStatusLabel1.Text = "Doble clic para editar.";
             // 
             // SucursalesForm
             // 
@@ -79,7 +89,10 @@ namespace INV_SYS.Formularios.ABC
             this.Text = "Sucursales";
             this.Load += new System.EventHandler(this.SucursalesForm_Load);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgSucursales)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -88,6 +101,7 @@ namespace INV_SYS.Formularios.ABC
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView dgSucursales;
-        private System.Windows.Forms.DataGridViewLinkColumn editar;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }

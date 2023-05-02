@@ -663,6 +663,7 @@ namespace INV_SYS
             this.cmbSucursal.Name = "cmbSucursal";
             this.cmbSucursal.Size = new System.Drawing.Size(220, 21);
             this.cmbSucursal.TabIndex = 1;
+            this.cmbSucursal.SelectedIndexChanged += new System.EventHandler(this.cmbSucursal_SelectedIndexChanged);
             // 
             // label6
             // 
