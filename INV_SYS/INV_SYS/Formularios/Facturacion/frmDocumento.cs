@@ -118,7 +118,25 @@ namespace INV_SYS
                 decimal precio=0;
                 decimal subTotal = 0;
                 decimal granTotal = 0;
-                txtNombre.Text = dtAdmision.Rows[0]["nombre"].ToString();
+                string idCliente = "";
+                string tipoCliente = "";
+                idCliente = dtAdmision.Rows[0]["cliente"].ToString();
+                tipoCliente = dtAdmision.Rows[0]["tipoCliente"].ToString();
+                if(String.IsNullOrEmpty(idCliente))
+                {
+                    txtNombre.Text = dtAdmision.Rows[0]["nombre"].ToString();
+                }
+                else
+                {
+                    DataTable dtCliente = RCliente.buscarCliente(idCliente);
+                    if(dtCliente.Rows.Count>0)
+                    {
+                        txtNit.Text = dtCliente.Rows[0]["NIT"].ToString();
+                        txtNombre.Text = dtCliente.Rows[0]["cliente"].ToString();
+                        txtDireccion.Text = dtCliente.Rows[0]["direccion"].ToString();
+                    }
+                }
+                
                 for(int r=0; r<dtAdmision.Rows.Count;r++)
                 {
                     linea= r + 1;
@@ -185,6 +203,17 @@ namespace INV_SYS
             {
                 txtNit.Text = "C/F";
                 documento.cliente = "C/F";
+            }
+
+            DataTable dtCliente = RCliente.verificarCliente(txtNit.Text);
+            if(dtCliente.Rows.Count==0)
+            {
+                ECliente cliente = new ECliente();
+                cliente.cliente = txtNit.Text;
+                cliente.codigoAlterno = txtNit.Text;
+                cliente.nombre = txtNombre.Text;
+                cliente.direccion = txtDireccion.Text;
+                RCliente.crearCliente(cliente);
             }
             documento.Nombre = txtNombre.Text;
             documento.Status = true;

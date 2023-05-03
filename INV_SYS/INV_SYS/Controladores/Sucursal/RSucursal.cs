@@ -26,6 +26,22 @@ namespace INV_SYS
             }
         }
 
+        public static DataTable buscarSucursal(string id)
+        {
+            using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
+            {
+                SqlCommand query = new SqlCommand(string.Format(@"SELECT [sucursal]
+                                                                  ,[nombre]
+                                                                  ,[direccion]
+                                                                  ,[telefono]
+                                                                  ,[email]
+                                                                    FROM [dbo].[SUCURSAL] where sucursal ='"+id+"' and status = 1 order by orden asc"), cnn);
+                DataTable dt = new DataTable();
+                dt.Load(query.ExecuteReader());
+                return dt;
+            }
+        }
+
         public static DataTable obtenerSucursalDefualt()
         {
             using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
@@ -35,6 +51,27 @@ namespace INV_SYS
                 dt.Load(query.ExecuteReader());
                 return dt;
             }
+        }
+
+        public static int crearSucursal(ESucursal sucursal)
+        {
+            int retorno;
+            using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
+            {
+                SqlCommand query = new SqlCommand(string.Format(@"INSERT INTO [dbo].[SUCURSAL]
+                                                                                               ([sucursal]
+                                                                                               ,[nombre]
+                                                                                               ,[status]
+                                                                                               ,[orden])
+                                                                                      VALUES
+                                                                                       ('" + sucursal.sucursal + "'" +
+                                                                                       ",'" + sucursal.nombre + "'" +
+                                                                                         ", '" + sucursal.status + "'" +
+                                                                                       ",'" + sucursal.orden + "')"), cnn);
+                retorno = query.ExecuteNonQuery();
+                cnn.Close();
+            }
+            return retorno;
         }
     }
 }

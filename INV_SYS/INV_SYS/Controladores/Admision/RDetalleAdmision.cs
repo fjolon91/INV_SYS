@@ -15,6 +15,7 @@ namespace INV_SYS
             int retorno;
             using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
             {
+                Detalle.status = "P";
                 SqlCommand query = new SqlCommand(string.Format(@"INSERT INTO [dbo].[DETALLE_ADMISION]
                                                                                        ([tipoAdmision]
                                                                                        ,[admision],[especialidad],[sucursal]

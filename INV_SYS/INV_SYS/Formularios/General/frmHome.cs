@@ -114,7 +114,7 @@ namespace INV_SYS
         
         private void cargarClientes()
         {
-            DataTable dtClientes = RCliente.listarClientes();
+            DataTable dtClientes = RCliente.listarClientesInstitucion();
             if(dtClientes.Rows.Count>0)
             {
                 cmbClientes.DataSource = dtClientes;
@@ -388,6 +388,26 @@ namespace INV_SYS
                 {
                     adm.tipoAdmision = dtOrdenLab.Rows[r]["TipoOrden"].ToString();
                     adm.Admision = dtOrdenLab.Rows[r]["Orden"].ToString();
+                    DataTable dtTipoAdmision = RTipoAdmision.buscarTipoAdmision(adm.tipoAdmision);
+                    if(dtTipoAdmision.Rows.Count==0)
+                    {
+                        ETipoAdmision etipoadmision = new ETipoAdmision();
+                        etipoadmision.tipoAdmision = adm.tipoAdmision;
+                        etipoadmision.descripcion = dtOrdenLab.Rows[r]["Sucursal"].ToString();
+                        etipoadmision.orden = 99;
+                        etipoadmision.status = true;
+                        RTipoAdmision.crearTipoAdmision(etipoadmision);
+                    }
+                    DataTable dtSucursal = RSucursal.buscarSucursal(adm.tipoAdmision);
+                    if(dtSucursal.Rows.Count==0)
+                    {
+                        ESucursal esucursal = new ESucursal();
+                        esucursal.sucursal = adm.tipoAdmision;
+                        esucursal.nombre = dtOrdenLab.Rows[r]["Sucursal"].ToString();
+                        esucursal.status = true;
+                        esucursal.orden = 99;
+                        RSucursal.crearSucursal(esucursal);
+                    }
                     adm.especialidad = "LABO";
                     adm.fechaRecepcion = Convert.ToDateTime(dtOrdenLab.Rows[r]["FechaRecepcion"].ToString());
                     adm.paciente = dtOrdenLab.Rows[r]["paciente"].ToString();//
@@ -423,7 +443,7 @@ namespace INV_SYS
                     if(String.IsNullOrEmpty(adm.medico))
                     {
                         adm.medico = "0";
-                        adm.nombre = "A QUIERN INTERESE";
+                        adm.nombreMedico = "A QUIERN INTERESE";
                     }
                     DataTable dtMedicos = RMedico.buscarMedico(dtOrdenLab.Rows[r]["Medico"].ToString());
                     if (dtMedicos.Rows.Count == 0)
@@ -438,7 +458,7 @@ namespace INV_SYS
 
                     adm.cliente = dtOrdenLab.Rows[r]["Cliente"].ToString();
                     adm.tipoCliente = dtOrdenLab.Rows[r]["TipoCliente"].ToString();
-                    adm.sucursal = dtOrdenLab.Rows[r]["Sucursal"].ToString();
+                    adm.sucursal = dtOrdenLab.Rows[r]["TipoOrden"].ToString();
                     adm.usuario = "INV_SYS";
 
                     DataTable dtExisteOrden = RAdmision.verificarAdmision(adm.Admision, adm.tipoAdmision, adm.especialidad, adm.sucursal);
@@ -460,7 +480,7 @@ namespace INV_SYS
                                     det.detalle = Convert.ToInt32(dtDetalle.Rows[j]["LineaOrden"].ToString());
                                     det.servicio = dtDetalle.Rows[j]["CodigoExamen"].ToString();
                                     det.descripcion = dtDetalle.Rows[j]["Examen"].ToString();
-                                    det.precio = dtDetalle.Rows[j]["Precio"].ToString();
+                                    det.venta = dtDetalle.Rows[j]["Precio"].ToString();
 
                                     DataTable dtProducto = RProducto.buscarProducto(det.servicio);
                                     EProducto eproducto = new EProducto();
@@ -497,10 +517,10 @@ namespace INV_SYS
                     else
                     {
                         RAdmision.eliminarAdmision(adm.Admision, adm.tipoAdmision, adm.especialidad, adm.sucursal);
-                    }
-                    
+                    }                    
                 }
             }
+            cargarLaboratorios();
 
         }
 
@@ -523,6 +543,50 @@ namespace INV_SYS
         private void corteDeCajaToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             gestionarCaja(userid, "P");
+        }
+
+        private void ordenInstitucion(DateTime fInicio, DateTime fFin, string institucion)
+        {
+            DataTable dtLabInstitucion = RAdmision.laboratoriosInstitucion(fInicio, fFin, institucion);
+            if (dtLabInstitucion.Rows.Count > 0)
+            {
+                
+                string admision = "";
+                string tipoAdmision = "";
+                string paciente = "";
+                string fechaIngreso = "";
+                decimal total = 0;
+                string idEspcialidad = "";
+                string especialidad = "";
+                string idTipoPaciente = "";
+                string tipoPaciente = "";
+                string status = "";
+                string idSucursal = "";
+                decimal granTotal=0;
+                dgvOrdenInstitucion.Rows.Clear();
+                for (int r = 0; r < dtLabInstitucion.Rows.Count; r++)
+                {
+                    admision = dtLabInstitucion.Rows[r]["Admision"].ToString();
+                    tipoAdmision = dtLabInstitucion.Rows[r]["tipoAdmision"].ToString();
+                    paciente = dtLabInstitucion.Rows[r]["Nombre"].ToString();
+                    fechaIngreso = dtLabInstitucion.Rows[r]["FechaRecepcion"].ToString();
+                    idEspcialidad = dtLabInstitucion.Rows[r]["IdEspecialidad"].ToString();
+                    especialidad = dtLabInstitucion.Rows[r]["Especialidad"].ToString();
+                    idTipoPaciente = dtLabInstitucion.Rows[r]["idTipoPaciente"].ToString();
+                    tipoPaciente = dtLabInstitucion.Rows[r]["tipoPaciente"].ToString();
+                    status = dtLabInstitucion.Rows[r]["status"].ToString();
+                    total = Convert.ToDecimal(dtLabInstitucion.Rows[r]["Total"].ToString());
+                    idSucursal = dtLabInstitucion.Rows[r]["sucursal"].ToString();
+                    dgvOrdenInstitucion.Rows.Add(admision, tipoAdmision, paciente, fechaIngreso, total.ToString("C2"), "", idEspcialidad, especialidad, idTipoPaciente, tipoPaciente, status, idSucursal);
+                    granTotal += total;
+                }
+                lblTotalFactura.Text = granTotal.ToString("C2");
+            }
+        }
+        private void btnBuscarOrden_Click(object sender, EventArgs e)
+        {
+            ordenInstitucion(dtpFechaInicial.Value, dtpFechaFinal.Value, cmbClientes.SelectedValue.ToString());
+            lblCantidadOrden.Text = " "+ dgvOrdenInstitucion.Rows.Count;
         }
     }
 }

@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Net;
-
+using System.Data;
+using System.Data.SqlClient;
 
 namespace INV_SYS
 {
@@ -15,20 +16,38 @@ namespace INV_SYS
         private string strResponseText;
         private string strUrl;
         private string strMethod;
-
+        private string usuarioFirma;
+        private string llaveFirma;
+        private string usuarioApi;
+        private string llaveApi;
+        private string identificador;
         public virtual void setRequestHeader(string bstrHeader, string bstrValue)
         {
-            
+            DataTable dtUFirma = RParametros.VerificarConfiguracion("FEL", "UsuarioFirmaFEL");
+            usuarioFirma = dtUFirma.Rows[0]["valorString"].ToString();
+
+            DataTable dtllFirma = RParametros.VerificarConfiguracion("FEL", "LLaveFirmaFEL");
+            llaveFirma = dtllFirma.Rows[0]["valorString"].ToString();
+
+            DataTable dtUsuarioApi = RParametros.VerificarConfiguracion("FEL", "UsuarioApiFEL");
+            usuarioApi = dtUsuarioApi.Rows[0]["valorString"].ToString();
+
+            DataTable dtLLaveApi = RParametros.VerificarConfiguracion("FEL", "LLaveApiFEL");
+            llaveApi = dtLLaveApi.Rows[0]["valorString"].ToString();
+
+            DataTable dtIdentificador = RParametros.VerificarConfiguracion("FEL", "IdentificadorFEL");
+            identificador = dtIdentificador.Rows[0]["valorString"].ToString();
+
             switch (bstrHeader)
             {
                 case "Content-Type":
                     {
                         urlWebRequest.ContentType = bstrValue;
-                        urlWebRequest.Headers.Add("UsuarioFirma", "BIODEMO");
-                        urlWebRequest.Headers.Add("LlaveFirma", "c9f7b580797568d8e89c20527294d8dc");
-                        urlWebRequest.Headers.Add("UsuarioApi", "BIODEMO");
-                        urlWebRequest.Headers.Add("LlaveApi", "C0D3A8E1FE0B03FFAF12F2F8DB66BD90");
-                        urlWebRequest.Headers.Add("identificador", "1");
+                        urlWebRequest.Headers.Add("UsuarioFirma", usuarioFirma);
+                        urlWebRequest.Headers.Add("LlaveFirma", llaveFirma);
+                        urlWebRequest.Headers.Add("UsuarioApi",usuarioApi);
+                        urlWebRequest.Headers.Add("LlaveApi", llaveApi);
+                        urlWebRequest.Headers.Add("identificador", identificador);
 
                         break;
                     }

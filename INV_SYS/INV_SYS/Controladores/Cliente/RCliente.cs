@@ -50,6 +50,28 @@ namespace INV_SYS
                 return dt;
             }
         }
+
+        public static DataTable listarClientesInstitucion()
+        {
+            using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
+            {
+                SqlCommand query = new SqlCommand(string.Format(@"SELECT [Cliente] as NIT,
+                                                                        [codigoAlterno]
+                                                                       ,[nombre] as Cliente,(cliente+'-'+nombre )as Descripcion,
+                                                                       TC.descripcion as TipoCliente, TC.descuento as [Descuento%]
+                                                                      ,[Direccion]
+                                                                      ,[Telefono]
+                                                                      ,[Email]
+                                                                      ,[Identificacion]
+                                                                      ,[Movil]
+                                                                      ,[Observacion] as Observaciones
+                                                                  FROM [dbo].[CLIENTE] C
+                                                                  INNER JOIN TIPO_CLIENTE TC ON C.tipoCliente = TC.tipoCliente where C.tipoCliente <>'INDIVIDUAL'order by nombre"), cnn);
+                DataTable dt = new DataTable();
+                dt.Load(query.ExecuteReader());
+                return dt;
+            }
+        }
         public static DataTable buscarCliente(string idName)
         {
             using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))

@@ -409,3 +409,6 @@ C:\Users\FER-PC\Documents\GitHub\INV_SYS\INV_SYS\INV_SYS\obj\Debug\INV_SYS.cspro
 C:\Users\FER-PC\Documents\GitHub\INV_SYS\INV_SYS\INV_SYS\obj\Debug\INV_SYS.csproj.CopyComplete
 C:\Users\FER-PC\Documents\GitHub\INV_SYS\INV_SYS\INV_SYS\obj\Debug\INV_SYS.exe
 C:\Users\FER-PC\Documents\GitHub\INV_SYS\INV_SYS\INV_SYS\obj\Debug\INV_SYS.pdb
+C:\Users\FER-PC\Documents\GitHub\INV_SYS\INV_SYS\INV_SYS\bin\Debug\C1.C1DataExtender.2.dll
+C:\Users\FER-PC\Documents\GitHub\INV_SYS\INV_SYS\INV_SYS\bin\Debug\C1.C1DataExtender.2.xml
+C:\Users\FER-PC\Documents\GitHub\INV_SYS\INV_SYS\INV_SYS\obj\Debug\INV_SYS.exe.licenses

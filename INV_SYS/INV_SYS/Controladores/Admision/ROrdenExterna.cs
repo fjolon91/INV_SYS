@@ -31,7 +31,7 @@ namespace INV_SYS
             {
 
                 SqlCommand query = new SqlCommand(string.Format(@"SELECT LineaOrden,CodigoExamen,Examen,Precio,Descuento 
-                                                                    FROM DATA WHERE TipoOrden ='"+tipoOrden+"' AND Orden ='"+orden+"' AND Sucursal='"+sucursal+"' "), cnn);
+                                                                    FROM DATA WHERE TipoOrden ='"+tipoOrden+"' AND Orden ='"+orden+"'"), cnn);
 
                 DataTable dt = new DataTable();
                 dt.Load(query.ExecuteReader());
@@ -44,7 +44,7 @@ namespace INV_SYS
             using (SqlConnection cnn = RConexionExterna.Conectando(Properties.Settings.Default.conexionExterna))
             {
 
-                SqlCommand query = new SqlCommand(string.Format(@"DELETE FROM DATA WHERE TipoOrden ='" + tipoOrden + "' AND Orden ='" + orden + "' AND Sucursal='" + sucursal + "'"), cnn);
+                SqlCommand query = new SqlCommand(string.Format(@"DELETE FROM DATA WHERE TipoOrden ='" + tipoOrden + "' AND Orden ='" + orden + "'"), cnn);
 
                 DataTable dt = new DataTable();
                 dt.Load(query.ExecuteReader());

@@ -34,12 +34,12 @@ namespace INV_SYS
             {
 
                 SqlCommand query = new SqlCommand(string.Format(@"SELECT A.Admision,A.tipoAdmision, A.FechaRecepcion,E.especialidad as IdEspecialidad ,E.descripcion as Especialidad,CTP.tipoPaciente as IdTipoPaciente, CTP.descripcion as TipoPaciente,A.paciente, A.nombre,A.fechaNacimiento,G.descripcion as Sexo,A.Medico
-                                                                                   ,a.status, A.nombreMedico,DA.cantidad, DA.servicio, DA.descripcion as Estudio, DA.Venta,(DA.cantidad*DA.Venta)AS subTotal, A.sucursal  FROM ADMISION A
+                                                                                   ,a.status, A.nombreMedico,DA.cantidad, DA.servicio, DA.descripcion as Estudio, DA.Venta,(DA.cantidad*DA.Venta)AS subTotal, A.sucursal,A.tipoCliente, A.cliente  FROM ADMISION A
                                                                                     INNER JOIN DETALLE_ADMISION DA ON A.tipoAdmision = DA.tipoAdmision AND A.admision = DA.admision AND A.especialidad= DA.especialidad AND A.sucursal= DA.sucursal
                                                                                     INNER JOIN TIPO_ADMISION TA ON TA.tipoAdmision = A.tipoAdmision 
                                                                                     INNER JOIN GENERO G ON G.sexo = a.sexo
                                                                                     INNER JOIN ESPECIALIDAD E ON E.especialidad = A.especialidad
-                                                                                    INNER JOIN TIPO_PACIENTE CTP ON CTP.tipoPaciente = A.tipoPaciente                                                                                    
+                                                                                    LEFT JOIN TIPO_PACIENTE CTP ON CTP.tipoPaciente = A.tipoPaciente                                                                                    
                                                                                     WHERE A.status<>'F' AND A.admision='"+admision+"' AND A.tipoAdmision='"+tipoAdmision+"' AND A.Especialidad='"+idEspecialidad+"' AND A.sucursal='"+sucursal+"'"), cnn);
                 DataTable dt = new DataTable();
                 dt.Load(query.ExecuteReader());
@@ -59,9 +59,9 @@ namespace INV_SYS
                                                                                     INNER JOIN TIPO_ADMISION TA ON TA.tipoAdmision = A.tipoAdmision 
                                                                                     INNER JOIN GENERO G ON G.sexo = a.sexo
                                                                                     INNER JOIN ESPECIALIDAD E ON E.especialidad = A.especialidad
-                                                                                    INNER JOIN TIPO_PACIENTE CTP ON CTP.tipoPaciente = A.tipoPaciente                                                                                    
+                                                                                    LEFT JOIN TIPO_PACIENTE CTP ON CTP.tipoPaciente = A.tipoPaciente                                                                                    
                                                                                     WHERE A.Especialidad ='LABO' AND A.status<>'F' GROUP BY A.Admision,A.tipoAdmision, A.FechaRecepcion,E.especialidad,A.sucursal, E.descripcion ,CTP.tipoPaciente, CTP.descripcion,A.paciente, A.nombre,A.fechaNacimiento,G.descripcion ,A.Medico, A.status
-                                                                                    ORDER BY A.FechaRecepcion, A.tipoAdminision, A.admision"), cnn);
+                                                                                    ORDER BY A.FechaRecepcion, A.tipoAdmision, A.admision"), cnn);
 
                 DataTable dt = new DataTable();
                 dt.Load(query.ExecuteReader());
@@ -69,6 +69,29 @@ namespace INV_SYS
             }
         }
 
+
+        public static DataTable laboratoriosInstitucion(DateTime fInicio, DateTime fFin, string institucion)
+        {
+
+            using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
+            {
+
+                SqlCommand query = new SqlCommand(string.Format(@"SELECT DISTINCT(A.Admision),A.tipoAdmision, A.FechaRecepcion,E.especialidad as IdEspecialidad ,E.descripcion as Especialidad,CTP.tipoPaciente as IdTipoPaciente, CTP.descripcion as TipoPaciente,A.paciente, A.nombre,A.fechaNacimiento,G.descripcion as Sexo,A.Medico
+                                                                                   ,a.status, SUM(DA.cantidad*DA.venta)AS Total, A.Sucursal, A.cliente FROM ADMISION A
+                                                                                    INNER JOIN DETALLE_ADMISION DA ON A.tipoAdmision = DA.tipoAdmision AND A.admision = DA.admision AND A.especialidad= DA.especialidad AND A.sucursal= DA.sucursal
+                                                                                    INNER JOIN TIPO_ADMISION TA ON TA.tipoAdmision = A.tipoAdmision 
+                                                                                    INNER JOIN GENERO G ON G.sexo = a.sexo
+                                                                                    INNER JOIN ESPECIALIDAD E ON E.especialidad = A.especialidad
+                                                                                    LEFT JOIN TIPO_PACIENTE CTP ON CTP.tipoPaciente = A.tipoPaciente                                                                                    
+                                                                                    WHERE A.Especialidad ='LABO' AND A.status<>'F' AND A.FechaRecepcion BETWEEN '"+fInicio.ToString("yyyyMMdd HH:mm:ss")+"' AND '"+fFin.ToString("yyyyMMdd HH:mm:ss") + "' AND A.Cliente ='"+institucion+"'"+
+                                                                                   " GROUP BY A.Admision,A.tipoAdmision, A.FechaRecepcion,E.especialidad,A.sucursal, E.descripcion ,CTP.tipoPaciente, CTP.descripcion,A.paciente, A.nombre,A.fechaNacimiento,G.descripcion ,A.Medico, A.status,A.cliente " +
+                                                                                    " ORDER BY A.FechaRecepcion, A.tipoAdmision, A.admision,A.cliente"), cnn);
+
+                DataTable dt = new DataTable();
+                dt.Load(query.ExecuteReader());
+                return dt;
+            }
+        }
 
 
 
@@ -103,8 +126,7 @@ namespace INV_SYS
             using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
             {
 
-                SqlCommand query = new SqlCommand(string.Format(@"SELECT *, dbo.calcularEdad(fechaNacimiento,fechaRecepcion) as Edad
-                                                                  FROM ADMISION WHERE admision = '" + No + "' and tipoAdmision='" + tipo + "' and especialidad='"+especialidad+"' and sucursal ='"+sucursal+"'"), cnn);
+                SqlCommand query = new SqlCommand(string.Format(@"SELECT *  FROM ADMISION WHERE admision = '" + No + "' and tipoAdmision='" + tipo + "' and especialidad='"+especialidad+"' and sucursal ='"+sucursal+"'"), cnn);
 
                 DataTable dt = new DataTable();
                 dt.Load(query.ExecuteReader());
@@ -170,8 +192,6 @@ namespace INV_SYS
 
             return retorno;
         }
-
-
 
         public void ultimAdmision(string especialidad, string tipo)
         {

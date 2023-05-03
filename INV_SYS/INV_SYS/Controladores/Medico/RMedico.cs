@@ -52,9 +52,7 @@ namespace INV_SYS
                 retorno = query.ExecuteNonQuery();
                 cnn.Close();
             }
-
             return retorno;
         }
-
     }
 }
