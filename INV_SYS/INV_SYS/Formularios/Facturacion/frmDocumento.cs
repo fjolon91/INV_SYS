@@ -31,6 +31,9 @@ namespace INV_SYS
         private string rutaFELQR;
         private string idSucursal;
         private string modo;
+        private string idCliente;
+        private double totalInstitucion;
+        private List<string> ordenes;
         public frmDocumento(string admision, string tipoAdmision, string especialidad, string user, string idSucursal,string modo)
         {
             InitializeComponent();
@@ -41,7 +44,63 @@ namespace INV_SYS
             this.idSucursal = idSucursal;
             this.modo = modo;
             estacion = Environment.MachineName;
-            iniciarCargarCombos();           
+            iniciarCargarCombos();
+            cargarAdmision();
+        }
+        //Facturar por institucion
+        public frmDocumento(string user, string idSucursal, string modo, double totalInstitucion, string idCliente, List<string>ordenes)
+         {
+            InitializeComponent();
+            this.user = user;
+            this.idSucursal = idSucursal;
+            this.modo = modo;
+            this.idCliente = idCliente;
+            this.totalInstitucion = totalInstitucion;
+            estacion = Environment.MachineName;
+            this.ordenes = ordenes;
+            iniciarCargarCombos();
+            cargarServicio();
+            cargarDatosInstitucion();
+        }
+
+        private void cargarDatosInstitucion()
+        {
+            DataTable dtInstitucion = RCliente.verificarCliente(idCliente);
+            if (dtInstitucion.Rows.Count > 0)
+            {
+                txtNit.Text = dtInstitucion.Rows[0]["cliente"].ToString();
+                txtNombre.Text = dtInstitucion.Rows[0]["Nombre"].ToString();
+                txtDireccion.Text = dtInstitucion.Rows[0]["Direccion"].ToString();
+            }
+            else
+            {
+                MessageBox.Show("No se encontro insitución","Alerta", MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            }
+        }
+
+        private void cargarServicio()
+        {
+            int linea = 1;
+            int cantidad = 1;
+            string idProducto = "";
+            string descripcion = "";
+            double precio = 0;
+            double subTotal = 0;
+            DataTable dtConfig = RParametros.VerificarConfiguracion("FAC", "ConceptoFacturaInstitucion");
+            if (dtConfig.Rows.Count > 0)
+            {
+                idProducto = dtConfig.Rows[0]["valorString"].ToString();
+                DataTable dtProducto = RProducto.buscarProducto(idProducto);
+                descripcion = dtProducto.Rows[0]["descripcion"].ToString();
+                precio = totalInstitucion;
+                subTotal = cantidad * totalInstitucion;
+                dgvDetalle.Rows.Add(linea,cantidad,idProducto,descripcion,precio,subTotal);
+                lblGranTotal.Text = subTotal.ToString("C2");
+            }
+            else
+            {
+                MessageBox.Show("Configure el codigo del servicio a facturar en los parametros del sistema", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }            
         }
 
         public frmDocumento(string tipo, string serie,string documento, string sucursal, string user)
@@ -53,6 +112,7 @@ namespace INV_SYS
             this.serie = serie;
             this.user = user;
             iniciarCargarCombos();
+            cargarAdmision();
             cargarDocumento(tipo, serie,documento, sucursal);
         }
 
@@ -101,7 +161,6 @@ namespace INV_SYS
         {
             cargarSucursal();
             cargarSerie();
-            cargarAdmision();
             cargarFormaPago();
             cargarMetodoPago();
         }
@@ -251,8 +310,23 @@ namespace INV_SYS
                 {
                     if(enviarFactura(documento.sucursal,documento.tipoDocumento,documento.NoDocumento.ToString(),documento.SerieDocumento)>0)
                     {
-                        if (RAdmision.cambiarStatusAdmision(tipoAdmision, admision, "LABO", "F", false,cmbSucursal.SelectedValue.ToString()) > 0)
-                            MessageBox.Show("Orden: " + admision + " Facturada con exito", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if(modo.CompareTo("I")==0)
+                        {
+                            string _tipoAdmision = "";
+                            string _admision = "";
+                            for(int r=0; r< ordenes.Count; r++)
+                            {
+                                _tipoAdmision = idSucursal;
+                                _admision = ordenes[r];
+                                RAdmision.cambiarStatusAdmision(_tipoAdmision, _admision, "LABO", "F", false, cmbSucursal.SelectedValue.ToString());
+                            }
+                            MessageBox.Show("Ordenes facturadas con exito", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            if (RAdmision.cambiarStatusAdmision(tipoAdmision, admision, "LABO", "F", false, cmbSucursal.SelectedValue.ToString()) > 0)
+                                MessageBox.Show("Orden: " + admision + " Facturada con exito", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }                        
                     }                    
                 }
 

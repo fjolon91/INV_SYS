@@ -16,6 +16,7 @@ namespace INV_SYS
         private string userid;
         private string ordenador;
         private string idCaja;
+        private string sucrusalPc;
         public frmInvSys(string userid)
         {
             InitializeComponent();
@@ -34,6 +35,7 @@ namespace INV_SYS
             {
                 idCaja = dtCaja.Rows[0]["caja"].ToString();
                 string status = dtCaja.Rows[0]["status"].ToString();
+                sucrusalPc = dtCaja.Rows[0]["sucursal"].ToString();
                 switch (status)
                 {
                     case "A":
@@ -125,7 +127,16 @@ namespace INV_SYS
         }
         private void btnGenerarFacturaInstitucion_Click(object sender, EventArgs e)
         {
+            string total = lblTotalFactura.Text.Replace("Q", "");
+            List<string> ordenes = new List<string>();
+            for(int r =0; r< dgvOrdenInstitucion.Rows.Count; r++)
+            {
+                string _orden = dgvOrdenInstitucion.Rows[r].Cells["noOrdenI"].Value.ToString();
+                ordenes.Add(_orden);
+            }
 
+            frmDocumento frmDoc = new frmDocumento(userid, sucrusalPc, "I", Convert.ToDouble(total),cmbClientes.SelectedValue.ToString(),ordenes);
+            frmDoc.ShowDialog(this);
         }
 
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
@@ -342,7 +353,6 @@ namespace INV_SYS
                     }
                 }
             }
-
         }
 
         private void tmrData_Tick(object sender, EventArgs e)
