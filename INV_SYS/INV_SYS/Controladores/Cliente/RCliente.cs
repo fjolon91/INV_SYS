@@ -66,7 +66,7 @@ namespace INV_SYS
                                                                       ,[Movil]
                                                                       ,[Observacion] as Observaciones
                                                                   FROM [dbo].[CLIENTE] C
-                                                                  INNER JOIN TIPO_CLIENTE TC ON C.tipoCliente = TC.tipoCliente where C.tipoCliente <>'INDIVIDUAL'order by nombre"), cnn);
+                                                                  INNER JOIN TIPO_CLIENTE TC ON C.tipoCliente = TC.tipoCliente where C.tipoCliente <>'INDIVIDUAL' AND C.tipoCliente <>'Default'  order by nombre"), cnn);
                 DataTable dt = new DataTable();
                 dt.Load(query.ExecuteReader());
                 return dt;

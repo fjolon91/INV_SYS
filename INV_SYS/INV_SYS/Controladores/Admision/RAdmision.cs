@@ -27,41 +27,42 @@ namespace INV_SYS
             }
         }
 
-        public static DataTable obtenerAdmision(string admision, string tipoAdmision, string idEspecialidad, string sucursal)
+        public static DataTable obtenerAdmision(string admision, string tipoAdmision, string idEspecialidad, string sucursal, string cliente)
         {
             
             using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
             {
 
                 SqlCommand query = new SqlCommand(string.Format(@"SELECT A.Admision,A.tipoAdmision, A.FechaRecepcion,E.especialidad as IdEspecialidad ,E.descripcion as Especialidad,CTP.tipoPaciente as IdTipoPaciente, CTP.descripcion as TipoPaciente,A.paciente, A.nombre,A.fechaNacimiento,G.descripcion as Sexo,A.Medico
-                                                                                   ,a.status, A.nombreMedico,DA.cantidad, DA.servicio, DA.descripcion as Estudio, DA.Venta,(DA.cantidad*DA.Venta)AS subTotal, A.sucursal,A.tipoCliente, A.cliente  FROM ADMISION A
-                                                                                    INNER JOIN DETALLE_ADMISION DA ON A.tipoAdmision = DA.tipoAdmision AND A.admision = DA.admision AND A.especialidad= DA.especialidad AND A.sucursal= DA.sucursal
+                                                                                   ,a.status, A.nombreMedico,DA.cantidad, DA.servicio, DA.descripcion as Estudio, DA.Venta,(DA.cantidad*DA.Venta)AS subTotal, A.sucursal,A.tipoCliente, A.cliente, A.idAdmision  FROM ADMISION A
+                                                                                    INNER JOIN DETALLE_ADMISION DA ON A.tipoAdmision = DA.tipoAdmision AND A.admision = DA.admision AND A.especialidad= DA.especialidad AND A.sucursal= DA.sucursal AND A.idAdmision = DA.idAdmision
                                                                                     INNER JOIN TIPO_ADMISION TA ON TA.tipoAdmision = A.tipoAdmision 
                                                                                     INNER JOIN GENERO G ON G.sexo = a.sexo
                                                                                     INNER JOIN ESPECIALIDAD E ON E.especialidad = A.especialidad
                                                                                     LEFT JOIN TIPO_PACIENTE CTP ON CTP.tipoPaciente = A.tipoPaciente                                                                                    
-                                                                                    WHERE A.status<>'F' AND A.admision='"+admision+"' AND A.tipoAdmision='"+tipoAdmision+"' AND A.Especialidad='"+idEspecialidad+"' AND A.sucursal='"+sucursal+"'"), cnn);
+                                                                                    WHERE A.status<>'F' AND A.admision='" + admision+"' AND A.tipoAdmision='"+tipoAdmision+"' AND A.Especialidad='"+idEspecialidad+"' AND A.sucursal='"+sucursal+"' and A.cliente = '"+ cliente + "'"), cnn);
                 DataTable dt = new DataTable();
                 dt.Load(query.ExecuteReader());
                 return dt;
             }
         }
 
-        public static DataTable laboratorioXFacturar()
+        public static DataTable laboratorioXFacturar(DateTime ini, DateTime fin)
         {
 
             using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
             {
 
                 SqlCommand query = new SqlCommand(string.Format(@"SELECT DISTINCT(A.Admision),A.tipoAdmision, A.FechaRecepcion,E.especialidad as IdEspecialidad ,E.descripcion as Especialidad,CTP.tipoPaciente as IdTipoPaciente, CTP.descripcion as TipoPaciente,A.paciente, A.nombre,A.fechaNacimiento,G.descripcion as Sexo,A.Medico
-                                                                                   ,a.status, SUM(DA.cantidad*DA.venta)AS Total, A.Sucursal FROM ADMISION A
-                                                                                    INNER JOIN DETALLE_ADMISION DA ON A.tipoAdmision = DA.tipoAdmision AND A.admision = DA.admision AND A.especialidad= DA.especialidad AND A.sucursal= DA.sucursal
+                                                                                   ,a.status, SUM(DA.cantidad*DA.venta)AS Total, A.Sucursal, A.idAdmision FROM ADMISION A
+                                                                                    INNER JOIN DETALLE_ADMISION DA ON A.tipoAdmision = DA.tipoAdmision AND A.admision = DA.admision AND A.especialidad= DA.especialidad AND A.sucursal= DA.sucursal AND A.idAdmision = DA.idAdmision 
                                                                                     INNER JOIN TIPO_ADMISION TA ON TA.tipoAdmision = A.tipoAdmision 
                                                                                     INNER JOIN GENERO G ON G.sexo = a.sexo
                                                                                     INNER JOIN ESPECIALIDAD E ON E.especialidad = A.especialidad
                                                                                     LEFT JOIN TIPO_PACIENTE CTP ON CTP.tipoPaciente = A.tipoPaciente                                                                                    
-                                                                                    WHERE A.Especialidad ='LABO' AND A.status<>'F' GROUP BY A.Admision,A.tipoAdmision, A.FechaRecepcion,E.especialidad,A.sucursal, E.descripcion ,CTP.tipoPaciente, CTP.descripcion,A.paciente, A.nombre,A.fechaNacimiento,G.descripcion ,A.Medico, A.status
-                                                                                    ORDER BY A.FechaRecepcion, A.tipoAdmision, A.admision"), cnn);
+                                                                                    WHERE A.Especialidad ='LABO' AND A.status<>'F' AND (A.cliente is null or A.cliente='') AND A.fechaRecepcion BETWEEN '" + ini.ToString("yyyyMMdd HH:mm:ss") + "' AND '" + fin.ToString("yyyyMMdd HH:mm:ss") + "' " +
+                                                                                    "GROUP BY A.Admision,A.tipoAdmision, A.FechaRecepcion,E.especialidad,A.sucursal, E.descripcion ,CTP.tipoPaciente, CTP.descripcion,A.paciente, A.nombre,A.fechaNacimiento,G.descripcion ,A.Medico, A.status, A.idAdmision " +
+                                                                                    "ORDER BY A.FechaRecepcion, A.tipoAdmision, A.admision"), cnn);
 
                 DataTable dt = new DataTable();
                 dt.Load(query.ExecuteReader());
@@ -77,14 +78,14 @@ namespace INV_SYS
             {
 
                 SqlCommand query = new SqlCommand(string.Format(@"SELECT DISTINCT(A.Admision),A.tipoAdmision, A.FechaRecepcion,E.especialidad as IdEspecialidad ,E.descripcion as Especialidad,CTP.tipoPaciente as IdTipoPaciente, CTP.descripcion as TipoPaciente,A.paciente, A.nombre,A.fechaNacimiento,G.descripcion as Sexo,A.Medico
-                                                                                   ,a.status, SUM(DA.cantidad*DA.venta)AS Total, A.Sucursal, A.cliente FROM ADMISION A
-                                                                                    INNER JOIN DETALLE_ADMISION DA ON A.tipoAdmision = DA.tipoAdmision AND A.admision = DA.admision AND A.especialidad= DA.especialidad AND A.sucursal= DA.sucursal
+                                                                                   ,a.status, SUM(DA.cantidad*DA.venta)AS Total, A.Sucursal, A.cliente, A.idAdmision FROM ADMISION A
+                                                                                    INNER JOIN DETALLE_ADMISION DA ON A.tipoAdmision = DA.tipoAdmision AND A.admision = DA.admision AND A.especialidad= DA.especialidad AND A.sucursal= DA.sucursal AND A.idAdmision = DA.idAdmision
                                                                                     INNER JOIN TIPO_ADMISION TA ON TA.tipoAdmision = A.tipoAdmision 
                                                                                     INNER JOIN GENERO G ON G.sexo = a.sexo
                                                                                     INNER JOIN ESPECIALIDAD E ON E.especialidad = A.especialidad
                                                                                     LEFT JOIN TIPO_PACIENTE CTP ON CTP.tipoPaciente = A.tipoPaciente                                                                                    
-                                                                                    WHERE A.Especialidad ='LABO' AND A.status<>'F' AND A.FechaRecepcion BETWEEN '"+fInicio.ToString("yyyyMMdd HH:mm:ss")+"' AND '"+fFin.ToString("yyyyMMdd HH:mm:ss") + "' AND A.Cliente ='"+institucion+"'"+
-                                                                                   " GROUP BY A.Admision,A.tipoAdmision, A.FechaRecepcion,E.especialidad,A.sucursal, E.descripcion ,CTP.tipoPaciente, CTP.descripcion,A.paciente, A.nombre,A.fechaNacimiento,G.descripcion ,A.Medico, A.status,A.cliente " +
+                                                                                    WHERE A.Especialidad ='LABO' AND A.status<>'F' AND A.FechaRecepcion BETWEEN '" + fInicio.ToString("yyyyMMdd HH:mm:ss")+"' AND '"+fFin.ToString("yyyyMMdd HH:mm:ss") + "' AND A.Cliente ='"+institucion+"'"+
+                                                                                   " GROUP BY A.Admision,A.tipoAdmision, A.FechaRecepcion,E.especialidad,A.sucursal, E.descripcion ,CTP.tipoPaciente, CTP.descripcion,A.paciente, A.nombre,A.fechaNacimiento,G.descripcion ,A.Medico, A.status,A.cliente, A.idAdmision " +
                                                                                     " ORDER BY A.FechaRecepcion, A.tipoAdmision, A.admision,A.cliente"), cnn);
 
                 DataTable dt = new DataTable();
@@ -102,9 +103,9 @@ namespace INV_SYS
             using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
             {
 
-                SqlCommand query = new SqlCommand(string.Format(@"SELECT DISTINCT(A.Admision),A.tipoAdmision, A.FechaRecepcion,E.especialidad as IdEspecialidad ,E.descripcion as Especialidad,CTP.tipoPaciente as IdTipoPaciente, CTP.descripcion as TipoPaciente,A.paciente, A.nombre,A.fechaNacimiento,G.descripcion as Sexo,A.Medico, A.sucursal
+                SqlCommand query = new SqlCommand(string.Format(@"SELECT DISTINCT(A.Admision),A.tipoAdmision, A.FechaRecepcion,E.especialidad as IdEspecialidad ,E.descripcion as Especialidad,CTP.tipoPaciente as IdTipoPaciente, CTP.descripcion as TipoPaciente,A.paciente, A.nombre,A.fechaNacimiento,G.descripcion as Sexo,A.Medico, A.sucursal, A.idAdmision 
                                                                                     FROM ADMISION A
-                                                                                    INNER JOIN DETALLE_ADMISION DA ON A.tipoAdmision = DA.tipoAdmision AND A.admision = DA.admision AND A.especialidad= DA.especialidad AND A.sucursal= DA.sucursal
+                                                                                    INNER JOIN DETALLE_ADMISION DA ON A.tipoAdmision = DA.tipoAdmision AND A.admision = DA.admision AND A.especialidad= DA.especialidad AND A.sucursal= DA.sucursal AND A.idAdmision = DA.idAdmision 
                                                                                     INNER JOIN TIPO_ADMISION TA ON TA.tipoAdmision = A.tipoAdmision 
                                                                                     INNER JOIN GENERO G ON G.sexo = a.sexo
                                                                                     INNER JOIN ESPECIALIDAD E ON E.especialidad = A.especialidad
@@ -121,12 +122,12 @@ namespace INV_SYS
         }
 
 
-        public static DataTable verificarAdmision(string No, string tipo,string especialidad, string sucursal)
+        public static DataTable verificarAdmision(string No, string tipo,string especialidad, string sucursal, string cliente)
         {
             using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
             {
 
-                SqlCommand query = new SqlCommand(string.Format(@"SELECT *  FROM ADMISION WHERE admision = '" + No + "' and tipoAdmision='" + tipo + "' and especialidad='"+especialidad+"' and sucursal ='"+sucursal+"'"), cnn);
+                SqlCommand query = new SqlCommand(string.Format(@"SELECT *  FROM ADMISION WHERE admision = '" + No + "' and tipoAdmision='" + tipo + "' and especialidad='"+especialidad+"' and sucursal ='"+sucursal+"' and cliente ='"+cliente+"'"), cnn);
 
                 DataTable dt = new DataTable();
                 dt.Load(query.ExecuteReader());
@@ -152,9 +153,9 @@ namespace INV_SYS
             using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
             {
 
-                SqlCommand query = new SqlCommand(string.Format(@"SELECT CONVERT(VARCHAR(10), FechaRecepcion, 103) as Fecha,A.Admision,A.observaciones AS Motivo, A.observacion2 as Diagnostico,DA.Descripcion,R.nombreServicio as Parametro, R.Resultado
+                SqlCommand query = new SqlCommand(string.Format(@"SELECT CONVERT(VARCHAR(10), FechaRecepcion, 103) as Fecha,A.Admision,A.observaciones AS Motivo, A.observacion2 as Diagnostico,DA.Descripcion,R.nombreServicio as Parametro, R.Resultado, A.idAdmision  
                                                                 FROM ADMISION A 
-                                                                INNER JOIN  DETALLE_ADMISION DA ON A.tipoAdmision = DA.tipoAdmision AND A.admision = DA.admision AND A.especialidad = DA.especialidad AND A.sucursal= DA.sucursal
+                                                                INNER JOIN  DETALLE_ADMISION DA ON A.tipoAdmision = DA.tipoAdmision AND A.admision = DA.admision AND A.especialidad = DA.especialidad AND A.sucursal= DA.sucursal AND A.idAdmision = DA.idAdmision 
                                                                 INNER JOIN RESULTADOS R ON r.tipoAdmision= DA.tipoAdmision AND R.admision = DA.admision AND R.especialidad = DA.especialidad
                                                                 AND R.lineaAdmision = DA.detalle WHERE A.PACIENTE = '" + IdPX + "'  and A.tipoAdmision ='ADMI' AND R.validado=1  AND A.STATUS NOT IN('X') ORDER BY A.fechaRecepcion desc"), cnn);
 
@@ -165,13 +166,12 @@ namespace INV_SYS
         }
 
 
-        public static int cambiarStatusAdmision(string tipoAdmision, string Admision, string especialidad, string status, bool altaMedica, string sucursal)
+        public static int cambiarStatusAdmision(string tipoAdmision, string Admision, string especialidad, string status, bool altaMedica, string sucursal, string idAdmision)
         {
             int retorno;
             using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
             {
-
-                SqlCommand query = new SqlCommand(string.Format(@"UPDATE [dbo].[ADMISION] SET STATUS='" + status + "' , altaMedica='" + altaMedica + "' ,fechaFinProceso=getDate() WHERE tipoAdmision='" + tipoAdmision + "' and Admision='" + Admision + "' and especialidad= '" + especialidad + "' and sucursal='"+sucursal+"'"), cnn);
+                SqlCommand query = new SqlCommand(string.Format(@"UPDATE [dbo].[ADMISION] SET STATUS='" + status + "' , altaMedica='" + altaMedica + "' ,fechaFinProceso=getDate() WHERE tipoAdmision='" + tipoAdmision + "' and Admision='" + Admision + "' and especialidad= '" + especialidad + "' and sucursal='" + sucursal + "' AND idAdmision = '" + idAdmision + "'"), cnn);
                 retorno = query.ExecuteNonQuery();
                 cnn.Close();
             }
@@ -284,6 +284,7 @@ namespace INV_SYS
         {
 
             int retorno;
+
             /*int No;
             string correlativoDay = "";
             string correlativoMonth = "";
@@ -343,6 +344,7 @@ namespace INV_SYS
 
             using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
             {
+                
                 SqlCommand query = new SqlCommand(string.Format(@"INSERT INTO [dbo].[ADMISION]
                                                                                        ([tipoAdmision]
                                                                                        ,[admision]
@@ -389,6 +391,7 @@ namespace INV_SYS
                                                                                           ", '" + admi.cliente + "'" +
                                                                                        ",'" + admi.usuario + "')"), cnn);
                 retorno = query.ExecuteNonQuery();
+                //retorno = query.ExecuteScalar();
                 cnn.Close();
             }
 
@@ -472,7 +475,7 @@ namespace INV_SYS
 																					  WHEN 'F' THEN 'FACTURADO'
                                                                                       WHEN 'X' THEN 'CANCELADA'
                                                                                       WHEN 'H' THEN 'HOPITALIZACION'
-																					  WHEN 'A' THEN 'ATENDIDO' END AS Estado, a.Stat as Emergencia, M.descripcion as Motivo " +
+																					  WHEN 'A' THEN 'ATENDIDO' END AS Estado, a.Stat as Emergencia, M.descripcion as Motivo, A.idAdmision " +
                                                                         " FROM ADMISION A " +
                                                                         " INNER JOIN TIPO_ADMISION TA ON TA.tipoAdmision = A.tipoAdmision " +
                                                                         " INNER JOIN ESPECIALIDAD E ON E.especialidad = A.especialidad " +

@@ -16,19 +16,21 @@ namespace INV_SYS
         private string tipoAdmision;
         private string idEspecialidad;
         private string sucursal;
-        public frmAdmision(string admision, string tipoAdmision, string idEspecialidad, string sucursal)
+        private string cliente;
+        public frmAdmision(string admision, string tipoAdmision, string idEspecialidad, string sucursal, string cliente)
         {
             InitializeComponent();
             this.admision = admision;
             this.tipoAdmision = tipoAdmision;
             this.idEspecialidad = idEspecialidad;
             this.sucursal = sucursal;
+            this.cliente = cliente;
             cargarInformacion();
         }
 
         public void cargarInformacion()
         {
-            DataTable dtAdmision = RAdmision.obtenerAdmision(admision, tipoAdmision, idEspecialidad,sucursal);
+            DataTable dtAdmision = RAdmision.obtenerAdmision(admision, tipoAdmision, idEspecialidad,sucursal,cliente);
             if(dtAdmision.Rows.Count>0)
             {
                 lblOrden.Text = dtAdmision.Rows[0]["Admision"].ToString();

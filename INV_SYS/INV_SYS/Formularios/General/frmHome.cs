@@ -53,7 +53,7 @@ namespace INV_SYS
 
         private void cargarLaboratorios()
         {
-            DataTable dtOrdensLab = RAdmision.laboratorioXFacturar();
+            DataTable dtOrdensLab = RAdmision.laboratorioXFacturar(dtpFPendInicio.Value, dtpFPendFin.Value);
             if(dtOrdensLab.Rows.Count>0)
             {
                 string admision = "";
@@ -67,9 +67,12 @@ namespace INV_SYS
                 string tipoPaciente = "";
                 string status = "";
                 string idSucursal = "";
+                string idAdmision = "";
+
                 dgvFacturas.Rows.Clear();
                 for(int r=0; r<dtOrdensLab.Rows.Count;r++)
                 {
+                    idAdmision = dtOrdensLab.Rows[r]["idAdmision"].ToString();
                     admision = dtOrdensLab.Rows[r]["Admision"].ToString();
                     tipoAdmision = dtOrdensLab.Rows[r]["tipoAdmision"].ToString();
                     paciente = dtOrdensLab.Rows[r]["Nombre"].ToString();
@@ -81,8 +84,12 @@ namespace INV_SYS
                     status = dtOrdensLab.Rows[r]["status"].ToString();
                     total = Convert.ToDecimal( dtOrdensLab.Rows[r]["Total"].ToString());
                     idSucursal = dtOrdensLab.Rows[r]["sucursal"].ToString();
-                    dgvFacturas.Rows.Add(admision,tipoAdmision,paciente,fechaIngreso,total.ToString("C2"),"",idEspcialidad,especialidad,idTipoPaciente,tipoPaciente,status,idSucursal);
+                    dgvFacturas.Rows.Add(idAdmision, admision, tipoAdmision,paciente,fechaIngreso,total.ToString("C2"),"",idEspcialidad,especialidad,idTipoPaciente,tipoPaciente,status,idSucursal);
                 }
+            }
+            else
+            {
+                dgvFacturas.Rows.Clear();
             }
             formatearGridAdmision();
         }
@@ -128,23 +135,19 @@ namespace INV_SYS
         private void btnGenerarFacturaInstitucion_Click(object sender, EventArgs e)
         {
             string total = lblTotalFactura.Text.Replace("Q", "");
+            List<string> idOrdenes = new List<string>();
             List<string> ordenes = new List<string>();
             for(int r =0; r< dgvOrdenInstitucion.Rows.Count; r++)
             {
                 string _orden = dgvOrdenInstitucion.Rows[r].Cells["noOrdenI"].Value.ToString();
                 ordenes.Add(_orden);
+
+                string _idOrden = dgvOrdenInstitucion.Rows[r].Cells["idAdmisionI"].Value.ToString();
+                idOrdenes.Add(_idOrden);
             }
 
-            frmDocumento frmDoc = new frmDocumento(userid, sucrusalPc, "I", Convert.ToDouble(total),cmbClientes.SelectedValue.ToString(),ordenes);
+            frmDocumento frmDoc = new frmDocumento(userid, sucrusalPc, "I", Convert.ToDouble(total),cmbClientes.SelectedValue.ToString(),ordenes, idOrdenes);
             frmDoc.ShowDialog(this);
-        }
-
-        private void tabControl1_Selected(object sender, TabControlEventArgs e)
-        {
-            cargarClientes();
-            cargarFacturas();
-            cargarProveedores();
-            cargarGastos();
         }
 
         private void seleccionarAdmision()
@@ -153,13 +156,15 @@ namespace INV_SYS
             string tipoAdmision = "";
             string idEspecialidad = "";
             string _idSucursal = "";
+            string _cliente = "";
             if (dgvFacturas.SelectedRows.Count==1)
             {
                 admision = dgvFacturas.CurrentRow.Cells["noOrden"].Value.ToString();
                 tipoAdmision = dgvFacturas.CurrentRow.Cells["TipoAdmision"].Value.ToString();
                 idEspecialidad = dgvFacturas.CurrentRow.Cells["IdEspecialidad"].Value.ToString();
                 _idSucursal = dgvFacturas.CurrentRow.Cells["idSucursal"].Value.ToString();
-                frmAdmision _frmAdmision = new frmAdmision(admision, tipoAdmision, idEspecialidad,_idSucursal);
+                _cliente = dgvFacturas.CurrentRow.Cells["cliente"].Value.ToString();
+                frmAdmision _frmAdmision = new frmAdmision(admision, tipoAdmision, idEspecialidad,_idSucursal,_cliente);
                 _frmAdmision.ShowDialog(this);
             }
         }
@@ -195,19 +200,22 @@ namespace INV_SYS
             cargarLaboratorios();
         }
 
-        private void facturarAdmision()
+        private void facturarAdmision() //factura individual
         {
             string admision = "";
             string tipoAdmision = "";
             string idEspecialidad = "";
             string idSucursal = "";
+            string idAdmision = "";
+
             if (dgvFacturas.SelectedRows.Count == 1)
             {
+                idAdmision = dgvFacturas.CurrentRow.Cells["idAdmision"].Value.ToString();
                 admision = dgvFacturas.CurrentRow.Cells["noOrden"].Value.ToString();
                 tipoAdmision = dgvFacturas.CurrentRow.Cells["TipoAdmision"].Value.ToString();
                 idEspecialidad = dgvFacturas.CurrentRow.Cells["IdEspecialidad"].Value.ToString();
                 idSucursal = dgvFacturas.CurrentRow.Cells["idSucursal"].Value.ToString();
-                frmDocumento _frmDocumento = new frmDocumento(admision, tipoAdmision, idEspecialidad,userid,idSucursal,"");
+                frmDocumento _frmDocumento = new frmDocumento(admision, tipoAdmision, idEspecialidad,userid,idSucursal,"",idAdmision);
                 _frmDocumento.ShowDialog(this);
             }
         }
@@ -389,6 +397,7 @@ namespace INV_SYS
 
         private void obtenerDatosLab()
         {
+            
             DataTable dtOrdenLab = ROrdenExterna.obtenerDatos();
             if(dtOrdenLab.Rows.Count>0)
             {
@@ -427,28 +436,35 @@ namespace INV_SYS
                     adm.medico = dtOrdenLab.Rows[r]["Medico"].ToString(); 
                     adm.nombreMedico = dtOrdenLab.Rows[r]["NombreMedico"].ToString();
 
-                    DataTable dtTipoCliente = RTipoCliente.ListarTipoClienteId(dtOrdenLab.Rows[r]["tipoCliente"].ToString());
-                    if (dtTipoCliente.Rows.Count == 0)
+                    if(!string.IsNullOrEmpty(dtOrdenLab.Rows[r]["tipoCliente"].ToString()))
                     {
-                        ETipoCliente eTipoCliente = new ETipoCliente();
-                        eTipoCliente.tipoCliente = dtOrdenLab.Rows[r]["tipoCliente"].ToString();
-                        eTipoCliente.descripcion = dtOrdenLab.Rows[r]["descripcion"].ToString();
-                        eTipoCliente.orden = 99;
-                        eTipoCliente.status = true;
-                        eTipoCliente.descuento = 0;
-                        RTipoCliente.crearTipoCliente(eTipoCliente);
+                        DataTable dtTipoCliente = RTipoCliente.ListarTipoClienteId(dtOrdenLab.Rows[r]["tipoCliente"].ToString());
+                        if (dtTipoCliente.Rows.Count == 0)
+                        {
+                            ETipoCliente eTipoCliente = new ETipoCliente();
+                            eTipoCliente.tipoCliente = dtOrdenLab.Rows[r]["tipoCliente"].ToString();
+                            eTipoCliente.descripcion = dtOrdenLab.Rows[r]["descripcion"].ToString();
+                            eTipoCliente.orden = 99;
+                            eTipoCliente.status = true;
+                            eTipoCliente.descuento = 0;
+                            RTipoCliente.crearTipoCliente(eTipoCliente);
+                        }
                     }
 
-                    DataTable dtCliente = RCliente.verificarCliente(dtOrdenLab.Rows[r]["cliente"].ToString());
-                    if (dtCliente.Rows.Count == 0)
+                    if (!string.IsNullOrEmpty(dtOrdenLab.Rows[r]["cliente"].ToString()))
                     {
-                        ECliente ecliente = new ECliente();
-                        ecliente.cliente = dtOrdenLab.Rows[r]["cliente"].ToString();
-                        ecliente.codigoAlterno = ecliente.cliente;
-                        ecliente.nombre = dtOrdenLab.Rows[r]["nombreCliente"].ToString();
-                        ecliente.tipoCliente = dtOrdenLab.Rows[r]["tipoCliente"].ToString();
-                        RCliente.crearCliente(ecliente);
+                        DataTable dtCliente = RCliente.verificarCliente(dtOrdenLab.Rows[r]["cliente"].ToString());
+                        if (dtCliente.Rows.Count == 0)
+                        {
+                            ECliente ecliente = new ECliente();
+                            ecliente.cliente = dtOrdenLab.Rows[r]["cliente"].ToString();
+                            ecliente.codigoAlterno = ecliente.cliente;
+                            ecliente.nombre = dtOrdenLab.Rows[r]["nombreCliente"].ToString();
+                            ecliente.tipoCliente = dtOrdenLab.Rows[r]["tipoCliente"].ToString();
+                            RCliente.crearCliente(ecliente);
+                        }
                     }
+                    
 
                     if(String.IsNullOrEmpty(adm.medico))
                     {
@@ -471,14 +487,17 @@ namespace INV_SYS
                     adm.sucursal = dtOrdenLab.Rows[r]["TipoOrden"].ToString();
                     adm.usuario = "INV_SYS";
 
-                    DataTable dtExisteOrden = RAdmision.verificarAdmision(adm.Admision, adm.tipoAdmision, adm.especialidad, adm.sucursal);
+                    //  no se utiliza porque pueden haber duplicados
+                    DataTable dtExisteOrden = RAdmision.verificarAdmision(adm.Admision, adm.tipoAdmision, adm.especialidad, adm.sucursal, adm.cliente);
 
-                    if(dtExisteOrden.Rows.Count==0)
+                    if (dtExisteOrden.Rows.Count == 0)
                     {
                         if (RAdmision.crearAdmision(adm) > 0)
                         {
+                            DataTable admisionCreada = RAdmision.verificarAdmision(adm.Admision, adm.tipoAdmision, adm.especialidad, adm.sucursal, adm.cliente);
+                           
                             DataTable dtDetalle = new DataTable();
-                            dtDetalle = ROrdenExterna.obtenerDetalle(adm.tipoAdmision, adm.Admision, adm.sucursal);
+                            dtDetalle = ROrdenExterna.obtenerDetalle(adm.tipoAdmision, adm.Admision, adm.sucursal, adm.cliente);
                             if (dtDetalle.Rows.Count > 0)
                             {
                                 for (int j = 0; j < dtDetalle.Rows.Count; j++)
@@ -491,6 +510,7 @@ namespace INV_SYS
                                     det.servicio = dtDetalle.Rows[j]["CodigoExamen"].ToString();
                                     det.descripcion = dtDetalle.Rows[j]["Examen"].ToString();
                                     det.venta = dtDetalle.Rows[j]["Precio"].ToString();
+                                    det.idAdmision = admisionCreada.Rows[0]["idAdmision"].ToString();
 
                                     DataTable dtProducto = RProducto.buscarProducto(det.servicio);
                                     EProducto eproducto = new EProducto();
@@ -520,17 +540,17 @@ namespace INV_SYS
                                     }
                                     RDetalleAdmision.crearDetalleAdmision(det);
                                 }
-                                ROrdenExterna.eliminarOrden(adm.tipoAdmision, adm.Admision, adm.sucursal);
+                                ROrdenExterna.eliminarOrden(adm.tipoAdmision, adm.Admision, adm.sucursal, adm.cliente);
                             }
                         }
-                    } 
-                    else
-                    {
-                        RAdmision.eliminarAdmision(adm.Admision, adm.tipoAdmision, adm.especialidad, adm.sucursal);
-                    }                    
+                    }
+                    //else
+                    //{
+                    //    RAdmision.eliminarAdmision(adm.Admision, adm.tipoAdmision, adm.especialidad, adm.sucursal);
+                    //}                    
                 }
             }
-            cargarLaboratorios();
+            //cargarLaboratorios();
 
         }
 
@@ -572,10 +592,12 @@ namespace INV_SYS
                 string tipoPaciente = "";
                 string status = "";
                 string idSucursal = "";
+                string idAdmisionI = "";
                 decimal granTotal=0;
                 dgvOrdenInstitucion.Rows.Clear();
                 for (int r = 0; r < dtLabInstitucion.Rows.Count; r++)
                 {
+                    idAdmisionI = dtLabInstitucion.Rows[r]["idAdmision"].ToString();
                     admision = dtLabInstitucion.Rows[r]["Admision"].ToString();
                     tipoAdmision = dtLabInstitucion.Rows[r]["tipoAdmision"].ToString();
                     paciente = dtLabInstitucion.Rows[r]["Nombre"].ToString();
@@ -587,16 +609,50 @@ namespace INV_SYS
                     status = dtLabInstitucion.Rows[r]["status"].ToString();
                     total = Convert.ToDecimal(dtLabInstitucion.Rows[r]["Total"].ToString());
                     idSucursal = dtLabInstitucion.Rows[r]["sucursal"].ToString();
-                    dgvOrdenInstitucion.Rows.Add(admision, tipoAdmision, paciente, fechaIngreso, total.ToString("C2"), "", idEspcialidad, especialidad, idTipoPaciente, tipoPaciente, status, idSucursal);
+                    dgvOrdenInstitucion.Rows.Add(idAdmisionI,admision, tipoAdmision, paciente, fechaIngreso, total.ToString("C2"), "", idEspcialidad, especialidad, idTipoPaciente, tipoPaciente, status, idSucursal);
                     granTotal += total;
                 }
                 lblTotalFactura.Text = granTotal.ToString("C2");
+            }
+            else
+            {
+                dgvOrdenInstitucion.Rows.Clear();
             }
         }
         private void btnBuscarOrden_Click(object sender, EventArgs e)
         {
             ordenInstitucion(dtpFechaInicial.Value, dtpFechaFinal.Value, cmbClientes.SelectedValue.ToString());
             lblCantidadOrden.Text = " "+ dgvOrdenInstitucion.Rows.Count;
+        }
+
+        private void btnBuscarFacturasPendientes_Click(object sender, EventArgs e)
+        {
+            cargarLaboratorios();
+        }
+
+        private void tabControl1_Selected(object sender, TabControlEventArgs e)
+        {
+            //Se envía a activación del componente correcto:
+
+            //cargarClientes();
+            //cargarFacturas();
+            cargarProveedores();
+            cargarGastos();
+        }
+
+        private void tpInstituciones_Enter(object sender, EventArgs e)
+        {
+            //MessageBox.Show("entra a instituciones");
+            cargarClientes();
+            //cargarFacturas();
+            //cargarProveedores();
+            //cargarGastos();
+        }
+
+        private void tpFacturar_Enter(object sender, EventArgs e)
+        {
+            //MessageBox.Show("entra a facturas");
+            cargarFacturas();
         }
     }
 }

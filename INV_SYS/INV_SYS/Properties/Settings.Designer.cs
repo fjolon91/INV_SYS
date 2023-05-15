@@ -34,8 +34,8 @@ namespace INV_SYS.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost\\SQLEXPRESS2019; Initial Catalog= ISMOV_TM; Persist Security" +
-            " Info= true; User id=sa; Password=superusuariolabymed")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost\\SQLEXPRESS2019; Initial Catalog= CAJA_TM; Persist Security " +
+            "Info= true; User id=sa; Password=superusuariolabymed")]
         public string Conexion {
             get {
                 return ((string)(this["Conexion"]));

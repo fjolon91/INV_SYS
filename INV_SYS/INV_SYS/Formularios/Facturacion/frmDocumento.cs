@@ -33,8 +33,10 @@ namespace INV_SYS
         private string modo;
         private string idCliente;
         private double totalInstitucion;
+        private string idAdmision;
         private List<string> ordenes;
-        public frmDocumento(string admision, string tipoAdmision, string especialidad, string user, string idSucursal,string modo)
+
+        public frmDocumento(string admision, string tipoAdmision, string especialidad, string user, string idSucursal,string modo, string idAdmision)
         {
             InitializeComponent();
             this.admision = admision;
@@ -43,12 +45,13 @@ namespace INV_SYS
             this.user = user;
             this.idSucursal = idSucursal;
             this.modo = modo;
+            this.idAdmision = idAdmision;
             estacion = Environment.MachineName;
             iniciarCargarCombos();
             cargarAdmision();
         }
         //Facturar por institucion
-        public frmDocumento(string user, string idSucursal, string modo, double totalInstitucion, string idCliente, List<string>ordenes)
+        public frmDocumento(string user, string idSucursal, string modo, double totalInstitucion, string idCliente, List<string>ordenes, List<string> idOrdenes)
          {
             InitializeComponent();
             this.user = user;
@@ -167,7 +170,7 @@ namespace INV_SYS
 
         private void cargarAdmision()
         {
-            DataTable dtAdmision = RAdmision.obtenerAdmision(admision, tipoAdmision, especialidad,idSucursal);
+            DataTable dtAdmision = RAdmision.obtenerAdmision(admision, tipoAdmision, especialidad,idSucursal, "");
             if(dtAdmision.Rows.Count>0)
             {
                 int linea=0;
@@ -314,17 +317,21 @@ namespace INV_SYS
                         {
                             string _tipoAdmision = "";
                             string _admision = "";
-                            for(int r=0; r< ordenes.Count; r++)
+                            string _cliente = "";
+                            for (int r=0; r< ordenes.Count; r++)
                             {
                                 _tipoAdmision = idSucursal;
                                 _admision = ordenes[r];
-                                RAdmision.cambiarStatusAdmision(_tipoAdmision, _admision, "LABO", "F", false, cmbSucursal.SelectedValue.ToString());
+                                _cliente = documento.cliente;
+                                RAdmision.cambiarStatusAdmision(_tipoAdmision, _admision, "LABO", "F", false, cmbSucursal.SelectedValue.ToString(), this.idAdmision);
                             }
                             MessageBox.Show("Ordenes facturadas con exito", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            this.Close();
                         }
                         else
                         {
-                            if (RAdmision.cambiarStatusAdmision(tipoAdmision, admision, "LABO", "F", false, cmbSucursal.SelectedValue.ToString()) > 0)
+                            if (RAdmision.cambiarStatusAdmision(tipoAdmision, admision, "LABO", "F", false, cmbSucursal.SelectedValue.ToString(), this.idAdmision) > 0)
                                 MessageBox.Show("Orden: " + admision + " Facturada con exito", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }                        
                     }                    

@@ -160,7 +160,20 @@ namespace INV_SYS
             this.btnReimprimirFactura = new System.Windows.Forms.Button();
             this.btnAnularFactura = new System.Windows.Forms.Button();
             this.tpFacturar = new System.Windows.Forms.TabPage();
+            this.panel11 = new System.Windows.Forms.Panel();
             this.dgvFacturas = new System.Windows.Forms.DataGridView();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.btnBuscarFacturasPendientes = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dtpFPendFin = new System.Windows.Forms.DateTimePicker();
+            this.dtpFPendInicio = new System.Windows.Forms.DateTimePicker();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnGenerarFactura = new System.Windows.Forms.Button();
+            this.btnVerDetalleFactura = new System.Windows.Forms.Button();
+            this.tbcGeneral = new System.Windows.Forms.TabControl();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.idAdmision = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.noOrden = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipoAdmision = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.paciente = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -173,11 +186,7 @@ namespace INV_SYS
             this.TipoPaciente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IdPaciente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idSucursal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnGenerarFactura = new System.Windows.Forms.Button();
-            this.btnVerDetalleFactura = new System.Windows.Forms.Button();
-            this.tbcGeneral = new System.Windows.Forms.TabControl();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.idAdmisionI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.noOrdenI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -214,7 +223,9 @@ namespace INV_SYS
             this.panel5.SuspendLayout();
             this.flowLayoutPanel14.SuspendLayout();
             this.tpFacturar.SuspendLayout();
+            this.panel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturas)).BeginInit();
+            this.panel10.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             this.tbcGeneral.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -757,6 +768,7 @@ namespace INV_SYS
             this.tpInstituciones.Text = "Instituciones";
             this.tpInstituciones.ToolTipText = "Generar facturas a instituciones";
             this.tpInstituciones.UseVisualStyleBackColor = true;
+            this.tpInstituciones.Enter += new System.EventHandler(this.tpInstituciones_Enter);
             // 
             // panel1
             // 
@@ -824,6 +836,7 @@ namespace INV_SYS
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvOrdenInstitucion.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvOrdenInstitucion.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idAdmisionI,
             this.noOrdenI,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
@@ -1346,6 +1359,7 @@ namespace INV_SYS
             // 
             // dtpInicio
             // 
+            this.dtpInicio.Checked = false;
             this.dtpInicio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpInicio.Location = new System.Drawing.Point(64, 9);
             this.dtpInicio.Name = "dtpInicio";
@@ -1384,7 +1398,8 @@ namespace INV_SYS
             // 
             // tpFacturar
             // 
-            this.tpFacturar.Controls.Add(this.dgvFacturas);
+            this.tpFacturar.Controls.Add(this.panel11);
+            this.tpFacturar.Controls.Add(this.panel10);
             this.tpFacturar.Controls.Add(this.flowLayoutPanel3);
             this.tpFacturar.Location = new System.Drawing.Point(4, 22);
             this.tpFacturar.Name = "tpFacturar";
@@ -1394,6 +1409,16 @@ namespace INV_SYS
             this.tpFacturar.Text = "Facturar";
             this.tpFacturar.ToolTipText = "Generar factura nueva";
             this.tpFacturar.UseVisualStyleBackColor = true;
+            this.tpFacturar.Enter += new System.EventHandler(this.tpFacturar_Enter);
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.dgvFacturas);
+            this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel11.Location = new System.Drawing.Point(3, 45);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(1263, 549);
+            this.panel11.TabIndex = 8;
             // 
             // dgvFacturas
             // 
@@ -1409,6 +1434,7 @@ namespace INV_SYS
             dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvFacturas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dgvFacturas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idAdmision,
             this.noOrden,
             this.tipoAdmision,
             this.paciente,
@@ -1430,13 +1456,137 @@ namespace INV_SYS
             dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvFacturas.DefaultCellStyle = dataGridViewCellStyle14;
             this.dgvFacturas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvFacturas.Location = new System.Drawing.Point(3, 3);
+            this.dgvFacturas.Location = new System.Drawing.Point(0, 0);
             this.dgvFacturas.Name = "dgvFacturas";
             this.dgvFacturas.ReadOnly = true;
             this.dgvFacturas.RowHeadersWidth = 51;
-            this.dgvFacturas.Size = new System.Drawing.Size(1263, 591);
+            this.dgvFacturas.Size = new System.Drawing.Size(1263, 549);
             this.dgvFacturas.TabIndex = 6;
             this.dgvFacturas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFacturas_CellContentClick);
+            // 
+            // panel10
+            // 
+            this.panel10.Controls.Add(this.btnBuscarFacturasPendientes);
+            this.panel10.Controls.Add(this.label4);
+            this.panel10.Controls.Add(this.label5);
+            this.panel10.Controls.Add(this.dtpFPendFin);
+            this.panel10.Controls.Add(this.dtpFPendInicio);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel10.Location = new System.Drawing.Point(3, 3);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(1263, 42);
+            this.panel10.TabIndex = 7;
+            // 
+            // btnBuscarFacturasPendientes
+            // 
+            this.btnBuscarFacturasPendientes.Location = new System.Drawing.Point(358, 8);
+            this.btnBuscarFacturasPendientes.Name = "btnBuscarFacturasPendientes";
+            this.btnBuscarFacturasPendientes.Size = new System.Drawing.Size(130, 26);
+            this.btnBuscarFacturasPendientes.TabIndex = 4;
+            this.btnBuscarFacturasPendientes.Text = "Buscar";
+            this.btnBuscarFacturasPendientes.UseVisualStyleBackColor = true;
+            this.btnBuscarFacturasPendientes.Click += new System.EventHandler(this.btnBuscarFacturasPendientes_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(185, 15);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(38, 13);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Hasta:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 15);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Desde:";
+            // 
+            // dtpFPendFin
+            // 
+            this.dtpFPendFin.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFPendFin.Location = new System.Drawing.Point(229, 9);
+            this.dtpFPendFin.Name = "dtpFPendFin";
+            this.dtpFPendFin.Size = new System.Drawing.Size(105, 20);
+            this.dtpFPendFin.TabIndex = 1;
+            // 
+            // dtpFPendInicio
+            // 
+            this.dtpFPendInicio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFPendInicio.Location = new System.Drawing.Point(64, 9);
+            this.dtpFPendInicio.Name = "dtpFPendInicio";
+            this.dtpFPendInicio.Size = new System.Drawing.Size(96, 20);
+            this.dtpFPendInicio.TabIndex = 0;
+            // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.flowLayoutPanel3.Controls.Add(this.btnGenerarFactura);
+            this.flowLayoutPanel3.Controls.Add(this.btnVerDetalleFactura);
+            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(1266, 3);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(137, 591);
+            this.flowLayoutPanel3.TabIndex = 5;
+            // 
+            // btnGenerarFactura
+            // 
+            this.btnGenerarFactura.Location = new System.Drawing.Point(3, 3);
+            this.btnGenerarFactura.Name = "btnGenerarFactura";
+            this.btnGenerarFactura.Size = new System.Drawing.Size(130, 26);
+            this.btnGenerarFactura.TabIndex = 0;
+            this.btnGenerarFactura.Text = "Generar Factura";
+            this.btnGenerarFactura.UseVisualStyleBackColor = true;
+            this.btnGenerarFactura.Click += new System.EventHandler(this.btnGenerarFactura_Click);
+            // 
+            // btnVerDetalleFactura
+            // 
+            this.btnVerDetalleFactura.Location = new System.Drawing.Point(3, 35);
+            this.btnVerDetalleFactura.Name = "btnVerDetalleFactura";
+            this.btnVerDetalleFactura.Size = new System.Drawing.Size(130, 26);
+            this.btnVerDetalleFactura.TabIndex = 1;
+            this.btnVerDetalleFactura.Text = "Ver detalle de Factura";
+            this.btnVerDetalleFactura.UseVisualStyleBackColor = true;
+            this.btnVerDetalleFactura.Click += new System.EventHandler(this.btnVerDetalleFactura_Click);
+            // 
+            // tbcGeneral
+            // 
+            this.tbcGeneral.Controls.Add(this.tpFacturar);
+            this.tbcGeneral.Controls.Add(this.tpRevision);
+            this.tbcGeneral.Controls.Add(this.tpInstituciones);
+            this.tbcGeneral.Controls.Add(this.tpEgresos);
+            this.tbcGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbcGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbcGeneral.ItemSize = new System.Drawing.Size(150, 18);
+            this.tbcGeneral.Location = new System.Drawing.Point(0, 0);
+            this.tbcGeneral.Multiline = true;
+            this.tbcGeneral.Name = "tbcGeneral";
+            this.tbcGeneral.SelectedIndex = 0;
+            this.tbcGeneral.Size = new System.Drawing.Size(1414, 623);
+            this.tbcGeneral.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tbcGeneral.TabIndex = 1;
+            this.tbcGeneral.Visible = false;
+            this.tbcGeneral.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.tbcGeneral);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 51);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1414, 623);
+            this.panel3.TabIndex = 10;
+            // 
+            // idAdmision
+            // 
+            this.idAdmision.HeaderText = "idAdmision";
+            this.idAdmision.Name = "idAdmision";
+            this.idAdmision.ReadOnly = true;
+            this.idAdmision.Visible = false;
+            this.idAdmision.Width = 82;
             // 
             // noOrden
             // 
@@ -1557,64 +1707,13 @@ namespace INV_SYS
             this.idSucursal.Visible = false;
             this.idSucursal.Width = 73;
             // 
-            // flowLayoutPanel3
+            // idAdmisionI
             // 
-            this.flowLayoutPanel3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.flowLayoutPanel3.Controls.Add(this.btnGenerarFactura);
-            this.flowLayoutPanel3.Controls.Add(this.btnVerDetalleFactura);
-            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(1266, 3);
-            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(137, 591);
-            this.flowLayoutPanel3.TabIndex = 5;
-            // 
-            // btnGenerarFactura
-            // 
-            this.btnGenerarFactura.Location = new System.Drawing.Point(3, 3);
-            this.btnGenerarFactura.Name = "btnGenerarFactura";
-            this.btnGenerarFactura.Size = new System.Drawing.Size(130, 26);
-            this.btnGenerarFactura.TabIndex = 0;
-            this.btnGenerarFactura.Text = "Generar Factura";
-            this.btnGenerarFactura.UseVisualStyleBackColor = true;
-            this.btnGenerarFactura.Click += new System.EventHandler(this.btnGenerarFactura_Click);
-            // 
-            // btnVerDetalleFactura
-            // 
-            this.btnVerDetalleFactura.Location = new System.Drawing.Point(3, 35);
-            this.btnVerDetalleFactura.Name = "btnVerDetalleFactura";
-            this.btnVerDetalleFactura.Size = new System.Drawing.Size(130, 26);
-            this.btnVerDetalleFactura.TabIndex = 1;
-            this.btnVerDetalleFactura.Text = "Ver detalle de Factura";
-            this.btnVerDetalleFactura.UseVisualStyleBackColor = true;
-            this.btnVerDetalleFactura.Click += new System.EventHandler(this.btnVerDetalleFactura_Click);
-            // 
-            // tbcGeneral
-            // 
-            this.tbcGeneral.Controls.Add(this.tpFacturar);
-            this.tbcGeneral.Controls.Add(this.tpRevision);
-            this.tbcGeneral.Controls.Add(this.tpInstituciones);
-            this.tbcGeneral.Controls.Add(this.tpEgresos);
-            this.tbcGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbcGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbcGeneral.ItemSize = new System.Drawing.Size(150, 18);
-            this.tbcGeneral.Location = new System.Drawing.Point(0, 0);
-            this.tbcGeneral.Multiline = true;
-            this.tbcGeneral.Name = "tbcGeneral";
-            this.tbcGeneral.SelectedIndex = 0;
-            this.tbcGeneral.Size = new System.Drawing.Size(1414, 623);
-            this.tbcGeneral.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.tbcGeneral.TabIndex = 1;
-            this.tbcGeneral.Visible = false;
-            this.tbcGeneral.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.tbcGeneral);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 51);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1414, 623);
-            this.panel3.TabIndex = 10;
+            this.idAdmisionI.HeaderText = "idAdmisionI";
+            this.idAdmisionI.Name = "idAdmisionI";
+            this.idAdmisionI.ReadOnly = true;
+            this.idAdmisionI.Visible = false;
+            this.idAdmisionI.Width = 85;
             // 
             // noOrdenI
             // 
@@ -1781,7 +1880,10 @@ namespace INV_SYS
             this.panel5.PerformLayout();
             this.flowLayoutPanel14.ResumeLayout(false);
             this.tpFacturar.ResumeLayout(false);
+            this.panel11.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturas)).EndInit();
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
             this.flowLayoutPanel3.ResumeLayout(false);
             this.tbcGeneral.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
@@ -1872,18 +1974,6 @@ namespace INV_SYS
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker dtpFinal;
         private System.Windows.Forms.DateTimePicker dtpInicio;
-        private System.Windows.Forms.DataGridViewTextBoxColumn noOrden;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tipoAdmision;
-        private System.Windows.Forms.DataGridViewTextBoxColumn paciente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fechaIngreso;
-        private System.Windows.Forms.DataGridViewTextBoxColumn totalFactura;
-        private System.Windows.Forms.DataGridViewButtonColumn verDetalle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idEspecialidad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Especialidad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IdTipoPaciente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TipoPaciente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IdPaciente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idSucursal;
         private System.Windows.Forms.DataGridViewTextBoxColumn noOrdenRevisar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn NIT;
@@ -1924,6 +2014,27 @@ namespace INV_SYS
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Panel panel9;
         public System.Windows.Forms.DataGridView dgvOrdenInstitucion;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Button btnBuscarFacturasPendientes;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DateTimePicker dtpFPendFin;
+        private System.Windows.Forms.DateTimePicker dtpFPendInicio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idAdmision;
+        private System.Windows.Forms.DataGridViewTextBoxColumn noOrden;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tipoAdmision;
+        private System.Windows.Forms.DataGridViewTextBoxColumn paciente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fechaIngreso;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalFactura;
+        private System.Windows.Forms.DataGridViewButtonColumn verDetalle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idEspecialidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Especialidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdTipoPaciente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TipoPaciente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdPaciente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idSucursal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idAdmisionI;
         private System.Windows.Forms.DataGridViewTextBoxColumn noOrdenI;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;

@@ -20,5 +20,6 @@ namespace INV_SYS
         public string venta { get; set; }
         public string status { get; set; }
         public bool cargar { get; set; }
+        public string idAdmision { get; set; }
     }
 }

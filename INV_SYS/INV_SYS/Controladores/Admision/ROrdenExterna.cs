@@ -15,7 +15,7 @@ namespace INV_SYS
         {
             using (SqlConnection cnn = RConexionExterna.Conectando(Properties.Settings.Default.conexionExterna))
             {
-
+                
                 SqlCommand query = new SqlCommand(string.Format(@"SELECT distinct fechaRecepcion, TipoCliente, Sucursal,TipoOrden, orden,NombreCliente, Nombre,PrimerApellido,SegundoApellido,Sexo,FechaNacimiento,Cliente,descripcion,Paciente,Medico,NombreMedico
                                                                     FROM DATA "), cnn);
 
@@ -25,13 +25,13 @@ namespace INV_SYS
             }
         }
 
-        public static DataTable obtenerDetalle(string tipoOrden, string orden, string sucursal)
+        public static DataTable obtenerDetalle(string tipoOrden, string orden, string sucursal, string cliente)
         {
             using (SqlConnection cnn = RConexionExterna.Conectando(Properties.Settings.Default.conexionExterna))
             {
 
                 SqlCommand query = new SqlCommand(string.Format(@"SELECT LineaOrden,CodigoExamen,Examen,Precio,Descuento 
-                                                                    FROM DATA WHERE TipoOrden ='"+tipoOrden+"' AND Orden ='"+orden+"'"), cnn);
+                                                                    FROM DATA WHERE TipoOrden ='"+tipoOrden+"' AND Orden ='"+orden+"' AND Cliente ='"+cliente+"'"), cnn);
 
                 DataTable dt = new DataTable();
                 dt.Load(query.ExecuteReader());
@@ -39,12 +39,12 @@ namespace INV_SYS
             }
         }
 
-        public static DataTable eliminarOrden(string tipoOrden, string orden, string sucursal)
+        public static DataTable eliminarOrden(string tipoOrden, string orden, string sucursal, string cliente)
         {
             using (SqlConnection cnn = RConexionExterna.Conectando(Properties.Settings.Default.conexionExterna))
             {
 
-                SqlCommand query = new SqlCommand(string.Format(@"DELETE FROM DATA WHERE TipoOrden ='" + tipoOrden + "' AND Orden ='" + orden + "'"), cnn);
+                SqlCommand query = new SqlCommand(string.Format(@"DELETE FROM DATA WHERE TipoOrden ='" + tipoOrden + "' AND Orden ='" + orden + "' AND Cliente ='" + cliente + "'"), cnn);
 
                 DataTable dt = new DataTable();
                 dt.Load(query.ExecuteReader());

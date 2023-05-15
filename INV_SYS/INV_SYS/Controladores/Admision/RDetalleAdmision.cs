@@ -20,6 +20,7 @@ namespace INV_SYS
                                                                                        ([tipoAdmision]
                                                                                        ,[admision],[especialidad],[sucursal]
                                                                                        ,[detalle]
+                                                                                       ,[idAdmision]
                                                                                        ,[servicio]
                                                                                        ,[descripcion]
                                                                                        ,[observaciones]
@@ -32,6 +33,7 @@ namespace INV_SYS
                                                                                        " ,'" + Detalle.especialidad + "'" +
                                                                                         " ,'" + Detalle.sucursal + "'" +
                                                                                        ",'" + Detalle.detalle + "'" +
+                                                                                       ",'" + Detalle.idAdmision + "'" +
                                                                                        ", '" + Detalle.servicio + "'" +
                                                                                        ",'" + Detalle.descripcion + "'" +
                                                                                        ", '" + Detalle.observaciones + "'" +
@@ -74,6 +76,7 @@ namespace INV_SYS
                                                                               ,[precio]
                                                                               ,[venta]
                                                                               ,[status]
+                                                                              ,[idAdmision] 
                                                                           FROM [dbo].[DETALLE_ADMISION] WHERE tipoAdmision='" + tipoAdmision + "' and admision = '" + admision + "' and servicio= '" + servicio + "' and especialidad ='" + especialidad + "' and detalle=" + linea + " order by detalle asc "), cnn);
                 DataTable dt = new DataTable();
                 dt.Load(query.ExecuteReader());
