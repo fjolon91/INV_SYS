@@ -1,4 +1,5 @@
 ﻿using INV_SYS.Formularios.ABC;
+using INV_SYS.Formularios;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -653,6 +654,29 @@ namespace INV_SYS
         {
             //MessageBox.Show("entra a facturas");
             cargarFacturas();
+        }
+
+        private void btnReimprimirFactura_Click(object sender, EventArgs e)
+        {
+            int tipoImpresion = 1;// Tipo 1= Impresion de facturas
+            string tipoDocumento = "";
+            string serieDocumento = "";
+            string documento = "";
+            string sucursal = "";
+            if (dgvFacturasEmitidas.SelectedRows.Count==1)
+            {
+                tipoDocumento = "F";
+                serieDocumento = dgvFacturasEmitidas.CurrentRow.Cells["serie"].Value.ToString();
+                documento = dgvFacturasEmitidas.CurrentRow.Cells["documento"].Value.ToString();
+                sucursal = dgvFacturasEmitidas.CurrentRow.Cells["sucursal"].Value.ToString();
+                imprimirFactura(tipoImpresion,tipoDocumento,serieDocumento,documento,sucursal);
+            }
+        }
+
+        public void imprimirFactura(int tipoImpresion, string tipoDocumento,string serieDocumento, string documento, string sucursal )
+        {
+            frmImpresionDocumento imprimir = new frmImpresionDocumento(tipoImpresion,tipoDocumento, serieDocumento, documento, sucursal);
+            imprimir.ShowDialog(this);
         }
     }
 }

@@ -35,7 +35,7 @@ namespace INV_SYS.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost\\SQLEXPRESS2019; Initial Catalog= CAJA_TM; Persist Security " +
-            "Info= true; User id=sa; Password=superusuariolabymed")]
+            "Info= true; User id=sa; Password=P@ssw0rd")]
         public string Conexion {
             get {
                 return ((string)(this["Conexion"]));
@@ -45,7 +45,7 @@ namespace INV_SYS.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost\\SQLEXPRESS2019; Initial Catalog= INTER; Persist Security In" +
-            "fo= true; User id=sa; Password=superusuariolabymed")]
+            "fo= true; User id=sa; Password=P@ssw0rd")]
         public string conexionExterna {
             get {
                 return ((string)(this["conexionExterna"]));

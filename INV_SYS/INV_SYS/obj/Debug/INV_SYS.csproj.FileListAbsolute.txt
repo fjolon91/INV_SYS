@@ -548,3 +548,7 @@ D:\REPO_PERSONAL\Caja\CFUENTE\INV_SYS\INV_SYS\INV_SYS\obj\Debug\INV_SYS.csproj.C
 D:\REPO_PERSONAL\Caja\CFUENTE\INV_SYS\INV_SYS\INV_SYS\obj\Debug\INV_SYS.csproj.CopyComplete
 D:\REPO_PERSONAL\Caja\CFUENTE\INV_SYS\INV_SYS\INV_SYS\obj\Debug\INV_SYS.exe
 D:\REPO_PERSONAL\Caja\CFUENTE\INV_SYS\INV_SYS\INV_SYS\obj\Debug\INV_SYS.pdb
+C:\Users\FER-PC\Documents\GitHub\INV_SYS\INV_SYS\INV_SYS\obj\Debug\INV_SYS.Formularios.frmImpresionDocumento.resources
+C:\Users\FER-PC\Documents\GitHub\INV_SYS\INV_SYS\INV_SYS\bin\Debug\FlashControlV71.dll
+C:\Users\FER-PC\Documents\GitHub\INV_SYS\INV_SYS\INV_SYS\bin\Debug\ShockwaveFlashObjects.dll
+C:\Users\FER-PC\Documents\GitHub\INV_SYS\INV_SYS\INV_SYS\bin\Debug\stdole.dll

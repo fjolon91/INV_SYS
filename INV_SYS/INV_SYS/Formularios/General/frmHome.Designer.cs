@@ -36,19 +36,17 @@ namespace INV_SYS
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmInvSys));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.cajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aperturarCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cerrarCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.corteDeCajaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.facturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generarFacturaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,9 +72,7 @@ namespace INV_SYS
             this.sesiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tsFastAccessTools = new System.Windows.Forms.ToolStrip();
-            this.tsbAperturarCaja = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbCerrarSesion = new System.Windows.Forms.ToolStripButton();
             this.tmrData = new System.Windows.Forms.Timer(this.components);
             this.tpEgresos = new System.Windows.Forms.TabPage();
             this.panel8 = new System.Windows.Forms.Panel();
@@ -109,6 +105,19 @@ namespace INV_SYS
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.dgvOrdenInstitucion = new System.Windows.Forms.DataGridView();
+            this.idAdmisionI = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.noOrdenI = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Orden = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel9 = new System.Windows.Forms.Panel();
             this.lblinfototal = new System.Windows.Forms.Label();
             this.lblTotalFactura = new System.Windows.Forms.Label();
@@ -162,17 +171,6 @@ namespace INV_SYS
             this.tpFacturar = new System.Windows.Forms.TabPage();
             this.panel11 = new System.Windows.Forms.Panel();
             this.dgvFacturas = new System.Windows.Forms.DataGridView();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.btnBuscarFacturasPendientes = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.dtpFPendFin = new System.Windows.Forms.DateTimePicker();
-            this.dtpFPendInicio = new System.Windows.Forms.DateTimePicker();
-            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnGenerarFactura = new System.Windows.Forms.Button();
-            this.btnVerDetalleFactura = new System.Windows.Forms.Button();
-            this.tbcGeneral = new System.Windows.Forms.TabControl();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.idAdmision = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.noOrden = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipoAdmision = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -186,19 +184,21 @@ namespace INV_SYS
             this.TipoPaciente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IdPaciente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idSucursal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idAdmisionI = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.noOrdenI = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Orden = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.btnBuscarFacturasPendientes = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dtpFPendFin = new System.Windows.Forms.DateTimePicker();
+            this.dtpFPendInicio = new System.Windows.Forms.DateTimePicker();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnGenerarFactura = new System.Windows.Forms.Button();
+            this.btnVerDetalleFactura = new System.Windows.Forms.Button();
+            this.tbcGeneral = new System.Windows.Forms.TabControl();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.tsbAperturarCaja = new System.Windows.Forms.ToolStripButton();
+            this.tsbCerrarSesion = new System.Windows.Forms.ToolStripButton();
+            this.aperturarCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cerrarCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tsFastAccessTools.SuspendLayout();
             this.tpEgresos.SuspendLayout();
@@ -256,22 +256,6 @@ namespace INV_SYS
             this.cajaToolStripMenuItem.Name = "cajaToolStripMenuItem";
             this.cajaToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
             this.cajaToolStripMenuItem.Text = "Caja";
-            // 
-            // aperturarCajaToolStripMenuItem
-            // 
-            this.aperturarCajaToolStripMenuItem.Image = global::INV_SYS.Properties.Resources.caja_registradora;
-            this.aperturarCajaToolStripMenuItem.Name = "aperturarCajaToolStripMenuItem";
-            this.aperturarCajaToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.aperturarCajaToolStripMenuItem.Text = "Aperturar caja";
-            this.aperturarCajaToolStripMenuItem.Click += new System.EventHandler(this.aperturarCajaToolStripMenuItem_Click);
-            // 
-            // cerrarCajaToolStripMenuItem
-            // 
-            this.cerrarCajaToolStripMenuItem.Image = global::INV_SYS.Properties.Resources.receipt_close;
-            this.cerrarCajaToolStripMenuItem.Name = "cerrarCajaToolStripMenuItem";
-            this.cerrarCajaToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.cerrarCajaToolStripMenuItem.Text = "Cerrar caja";
-            this.cerrarCajaToolStripMenuItem.Click += new System.EventHandler(this.cerrarCajaToolStripMenuItem_Click);
             // 
             // corteDeCajaToolStripMenuItem1
             // 
@@ -462,31 +446,10 @@ namespace INV_SYS
             this.tsFastAccessTools.TabIndex = 9;
             this.tsFastAccessTools.Text = "Herramientas";
             // 
-            // tsbAperturarCaja
-            // 
-            this.tsbAperturarCaja.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbAperturarCaja.Image = global::INV_SYS.Properties.Resources.caja_registradora;
-            this.tsbAperturarCaja.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbAperturarCaja.Name = "tsbAperturarCaja";
-            this.tsbAperturarCaja.Size = new System.Drawing.Size(24, 24);
-            this.tsbAperturarCaja.Text = "Aperturar caja";
-            this.tsbAperturarCaja.Click += new System.EventHandler(this.aperturarCajaToolStripMenuItem_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
-            // 
-            // tsbCerrarSesion
-            // 
-            this.tsbCerrarSesion.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbCerrarSesion.Image = global::INV_SYS.Properties.Resources.receipt_close;
-            this.tsbCerrarSesion.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbCerrarSesion.Name = "tsbCerrarSesion";
-            this.tsbCerrarSesion.Size = new System.Drawing.Size(24, 24);
-            this.tsbCerrarSesion.Text = "tsbCerrarCaja";
-            this.tsbCerrarSesion.ToolTipText = "Cerrar caja";
-            this.tsbCerrarSesion.Click += new System.EventHandler(this.cerrarCajaToolStripMenuItem_Click);
             // 
             // tmrData
             // 
@@ -872,6 +835,133 @@ namespace INV_SYS
             this.dgvOrdenInstitucion.RowHeadersWidth = 51;
             this.dgvOrdenInstitucion.Size = new System.Drawing.Size(1252, 317);
             this.dgvOrdenInstitucion.TabIndex = 18;
+            // 
+            // idAdmisionI
+            // 
+            this.idAdmisionI.HeaderText = "idAdmisionI";
+            this.idAdmisionI.Name = "idAdmisionI";
+            this.idAdmisionI.ReadOnly = true;
+            this.idAdmisionI.Visible = false;
+            this.idAdmisionI.Width = 85;
+            // 
+            // noOrdenI
+            // 
+            this.noOrdenI.HeaderText = "Orden";
+            this.noOrdenI.MaxInputLength = 25;
+            this.noOrdenI.MinimumWidth = 6;
+            this.noOrdenI.Name = "noOrdenI";
+            this.noOrdenI.ReadOnly = true;
+            this.noOrdenI.ToolTipText = "No. de orden de laboratorio";
+            this.noOrdenI.Width = 61;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "tipoAdmision";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Visible = false;
+            this.dataGridViewTextBoxColumn2.Width = 91;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Paciente";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 74;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle5.Format = "g";
+            dataGridViewCellStyle5.NullValue = null;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Fecha de ingreso";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 114;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle6.Format = "C2";
+            dataGridViewCellStyle6.NullValue = null;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridViewTextBoxColumn5.HeaderText = "Total a facturar";
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 104;
+            // 
+            // dataGridViewButtonColumn1
+            // 
+            this.dataGridViewButtonColumn1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.dataGridViewButtonColumn1.HeaderText = "Ver detalle";
+            this.dataGridViewButtonColumn1.MinimumWidth = 15;
+            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
+            this.dataGridViewButtonColumn1.ReadOnly = true;
+            this.dataGridViewButtonColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewButtonColumn1.Text = "Abrir";
+            this.dataGridViewButtonColumn1.ToolTipText = "Abrir Orden";
+            this.dataGridViewButtonColumn1.UseColumnTextForButtonValue = true;
+            this.dataGridViewButtonColumn1.Visible = false;
+            this.dataGridViewButtonColumn1.Width = 63;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.HeaderText = "idEspecialidad";
+            this.dataGridViewTextBoxColumn6.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.HeaderText = "Especialidad";
+            this.dataGridViewTextBoxColumn7.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.Visible = false;
+            this.dataGridViewTextBoxColumn7.Width = 92;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.HeaderText = "IdTipoPaciente";
+            this.dataGridViewTextBoxColumn8.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            this.dataGridViewTextBoxColumn8.Visible = false;
+            this.dataGridViewTextBoxColumn8.Width = 104;
+            // 
+            // Orden
+            // 
+            this.Orden.HeaderText = "TipoPaciente";
+            this.Orden.MinimumWidth = 6;
+            this.Orden.Name = "Orden";
+            this.Orden.ReadOnly = true;
+            this.Orden.Visible = false;
+            this.Orden.Width = 95;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.HeaderText = "status";
+            this.dataGridViewTextBoxColumn10.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.Visible = false;
+            this.dataGridViewTextBoxColumn10.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.HeaderText = "Sucursal";
+            this.dataGridViewTextBoxColumn11.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
+            this.dataGridViewTextBoxColumn11.Visible = false;
+            this.dataGridViewTextBoxColumn11.Width = 73;
             // 
             // panel9
             // 
@@ -1385,6 +1475,7 @@ namespace INV_SYS
             this.btnReimprimirFactura.TabIndex = 0;
             this.btnReimprimirFactura.Text = "Reimprimir Factura";
             this.btnReimprimirFactura.UseVisualStyleBackColor = true;
+            this.btnReimprimirFactura.Click += new System.EventHandler(this.btnReimprimirFactura_Click);
             // 
             // btnAnularFactura
             // 
@@ -1463,122 +1554,6 @@ namespace INV_SYS
             this.dgvFacturas.Size = new System.Drawing.Size(1263, 549);
             this.dgvFacturas.TabIndex = 6;
             this.dgvFacturas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFacturas_CellContentClick);
-            // 
-            // panel10
-            // 
-            this.panel10.Controls.Add(this.btnBuscarFacturasPendientes);
-            this.panel10.Controls.Add(this.label4);
-            this.panel10.Controls.Add(this.label5);
-            this.panel10.Controls.Add(this.dtpFPendFin);
-            this.panel10.Controls.Add(this.dtpFPendInicio);
-            this.panel10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel10.Location = new System.Drawing.Point(3, 3);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(1263, 42);
-            this.panel10.TabIndex = 7;
-            // 
-            // btnBuscarFacturasPendientes
-            // 
-            this.btnBuscarFacturasPendientes.Location = new System.Drawing.Point(358, 8);
-            this.btnBuscarFacturasPendientes.Name = "btnBuscarFacturasPendientes";
-            this.btnBuscarFacturasPendientes.Size = new System.Drawing.Size(130, 26);
-            this.btnBuscarFacturasPendientes.TabIndex = 4;
-            this.btnBuscarFacturasPendientes.Text = "Buscar";
-            this.btnBuscarFacturasPendientes.UseVisualStyleBackColor = true;
-            this.btnBuscarFacturasPendientes.Click += new System.EventHandler(this.btnBuscarFacturasPendientes_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(185, 15);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 13);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Hasta:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 15);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 13);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Desde:";
-            // 
-            // dtpFPendFin
-            // 
-            this.dtpFPendFin.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpFPendFin.Location = new System.Drawing.Point(229, 9);
-            this.dtpFPendFin.Name = "dtpFPendFin";
-            this.dtpFPendFin.Size = new System.Drawing.Size(105, 20);
-            this.dtpFPendFin.TabIndex = 1;
-            // 
-            // dtpFPendInicio
-            // 
-            this.dtpFPendInicio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpFPendInicio.Location = new System.Drawing.Point(64, 9);
-            this.dtpFPendInicio.Name = "dtpFPendInicio";
-            this.dtpFPendInicio.Size = new System.Drawing.Size(96, 20);
-            this.dtpFPendInicio.TabIndex = 0;
-            // 
-            // flowLayoutPanel3
-            // 
-            this.flowLayoutPanel3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.flowLayoutPanel3.Controls.Add(this.btnGenerarFactura);
-            this.flowLayoutPanel3.Controls.Add(this.btnVerDetalleFactura);
-            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(1266, 3);
-            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(137, 591);
-            this.flowLayoutPanel3.TabIndex = 5;
-            // 
-            // btnGenerarFactura
-            // 
-            this.btnGenerarFactura.Location = new System.Drawing.Point(3, 3);
-            this.btnGenerarFactura.Name = "btnGenerarFactura";
-            this.btnGenerarFactura.Size = new System.Drawing.Size(130, 26);
-            this.btnGenerarFactura.TabIndex = 0;
-            this.btnGenerarFactura.Text = "Generar Factura";
-            this.btnGenerarFactura.UseVisualStyleBackColor = true;
-            this.btnGenerarFactura.Click += new System.EventHandler(this.btnGenerarFactura_Click);
-            // 
-            // btnVerDetalleFactura
-            // 
-            this.btnVerDetalleFactura.Location = new System.Drawing.Point(3, 35);
-            this.btnVerDetalleFactura.Name = "btnVerDetalleFactura";
-            this.btnVerDetalleFactura.Size = new System.Drawing.Size(130, 26);
-            this.btnVerDetalleFactura.TabIndex = 1;
-            this.btnVerDetalleFactura.Text = "Ver detalle de Factura";
-            this.btnVerDetalleFactura.UseVisualStyleBackColor = true;
-            this.btnVerDetalleFactura.Click += new System.EventHandler(this.btnVerDetalleFactura_Click);
-            // 
-            // tbcGeneral
-            // 
-            this.tbcGeneral.Controls.Add(this.tpFacturar);
-            this.tbcGeneral.Controls.Add(this.tpRevision);
-            this.tbcGeneral.Controls.Add(this.tpInstituciones);
-            this.tbcGeneral.Controls.Add(this.tpEgresos);
-            this.tbcGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbcGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbcGeneral.ItemSize = new System.Drawing.Size(150, 18);
-            this.tbcGeneral.Location = new System.Drawing.Point(0, 0);
-            this.tbcGeneral.Multiline = true;
-            this.tbcGeneral.Name = "tbcGeneral";
-            this.tbcGeneral.SelectedIndex = 0;
-            this.tbcGeneral.Size = new System.Drawing.Size(1414, 623);
-            this.tbcGeneral.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.tbcGeneral.TabIndex = 1;
-            this.tbcGeneral.Visible = false;
-            this.tbcGeneral.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.tbcGeneral);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 51);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1414, 623);
-            this.panel3.TabIndex = 10;
             // 
             // idAdmision
             // 
@@ -1707,132 +1682,158 @@ namespace INV_SYS
             this.idSucursal.Visible = false;
             this.idSucursal.Width = 73;
             // 
-            // idAdmisionI
+            // panel10
             // 
-            this.idAdmisionI.HeaderText = "idAdmisionI";
-            this.idAdmisionI.Name = "idAdmisionI";
-            this.idAdmisionI.ReadOnly = true;
-            this.idAdmisionI.Visible = false;
-            this.idAdmisionI.Width = 85;
+            this.panel10.Controls.Add(this.btnBuscarFacturasPendientes);
+            this.panel10.Controls.Add(this.label4);
+            this.panel10.Controls.Add(this.label5);
+            this.panel10.Controls.Add(this.dtpFPendFin);
+            this.panel10.Controls.Add(this.dtpFPendInicio);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel10.Location = new System.Drawing.Point(3, 3);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(1263, 42);
+            this.panel10.TabIndex = 7;
             // 
-            // noOrdenI
+            // btnBuscarFacturasPendientes
             // 
-            this.noOrdenI.HeaderText = "Orden";
-            this.noOrdenI.MaxInputLength = 25;
-            this.noOrdenI.MinimumWidth = 6;
-            this.noOrdenI.Name = "noOrdenI";
-            this.noOrdenI.ReadOnly = true;
-            this.noOrdenI.ToolTipText = "No. de orden de laboratorio";
-            this.noOrdenI.Width = 61;
+            this.btnBuscarFacturasPendientes.Location = new System.Drawing.Point(358, 8);
+            this.btnBuscarFacturasPendientes.Name = "btnBuscarFacturasPendientes";
+            this.btnBuscarFacturasPendientes.Size = new System.Drawing.Size(130, 26);
+            this.btnBuscarFacturasPendientes.TabIndex = 4;
+            this.btnBuscarFacturasPendientes.Text = "Buscar";
+            this.btnBuscarFacturasPendientes.UseVisualStyleBackColor = true;
+            this.btnBuscarFacturasPendientes.Click += new System.EventHandler(this.btnBuscarFacturasPendientes_Click);
             // 
-            // dataGridViewTextBoxColumn2
+            // label4
             // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "tipoAdmision";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Visible = false;
-            this.dataGridViewTextBoxColumn2.Width = 91;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(185, 15);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(38, 13);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Hasta:";
             // 
-            // dataGridViewTextBoxColumn3
+            // label5
             // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Paciente";
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 74;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 15);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Desde:";
             // 
-            // dataGridViewTextBoxColumn4
+            // dtpFPendFin
             // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle5.Format = "g";
-            dataGridViewCellStyle5.NullValue = null;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Fecha de ingreso";
-            this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 114;
+            this.dtpFPendFin.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFPendFin.Location = new System.Drawing.Point(229, 9);
+            this.dtpFPendFin.Name = "dtpFPendFin";
+            this.dtpFPendFin.Size = new System.Drawing.Size(105, 20);
+            this.dtpFPendFin.TabIndex = 1;
             // 
-            // dataGridViewTextBoxColumn5
+            // dtpFPendInicio
             // 
-            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle6.Format = "C2";
-            dataGridViewCellStyle6.NullValue = null;
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridViewTextBoxColumn5.HeaderText = "Total a facturar";
-            this.dataGridViewTextBoxColumn5.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 104;
+            this.dtpFPendInicio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFPendInicio.Location = new System.Drawing.Point(64, 9);
+            this.dtpFPendInicio.Name = "dtpFPendInicio";
+            this.dtpFPendInicio.Size = new System.Drawing.Size(96, 20);
+            this.dtpFPendInicio.TabIndex = 0;
             // 
-            // dataGridViewButtonColumn1
+            // flowLayoutPanel3
             // 
-            this.dataGridViewButtonColumn1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.dataGridViewButtonColumn1.HeaderText = "Ver detalle";
-            this.dataGridViewButtonColumn1.MinimumWidth = 15;
-            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
-            this.dataGridViewButtonColumn1.ReadOnly = true;
-            this.dataGridViewButtonColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewButtonColumn1.Text = "Abrir";
-            this.dataGridViewButtonColumn1.ToolTipText = "Abrir Orden";
-            this.dataGridViewButtonColumn1.UseColumnTextForButtonValue = true;
-            this.dataGridViewButtonColumn1.Visible = false;
-            this.dataGridViewButtonColumn1.Width = 63;
+            this.flowLayoutPanel3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.flowLayoutPanel3.Controls.Add(this.btnGenerarFactura);
+            this.flowLayoutPanel3.Controls.Add(this.btnVerDetalleFactura);
+            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(1266, 3);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(137, 591);
+            this.flowLayoutPanel3.TabIndex = 5;
             // 
-            // dataGridViewTextBoxColumn6
+            // btnGenerarFactura
             // 
-            this.dataGridViewTextBoxColumn6.HeaderText = "idEspecialidad";
-            this.dataGridViewTextBoxColumn6.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Visible = false;
+            this.btnGenerarFactura.Location = new System.Drawing.Point(3, 3);
+            this.btnGenerarFactura.Name = "btnGenerarFactura";
+            this.btnGenerarFactura.Size = new System.Drawing.Size(130, 26);
+            this.btnGenerarFactura.TabIndex = 0;
+            this.btnGenerarFactura.Text = "Generar Factura";
+            this.btnGenerarFactura.UseVisualStyleBackColor = true;
+            this.btnGenerarFactura.Click += new System.EventHandler(this.btnGenerarFactura_Click);
             // 
-            // dataGridViewTextBoxColumn7
+            // btnVerDetalleFactura
             // 
-            this.dataGridViewTextBoxColumn7.HeaderText = "Especialidad";
-            this.dataGridViewTextBoxColumn7.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            this.dataGridViewTextBoxColumn7.Visible = false;
-            this.dataGridViewTextBoxColumn7.Width = 92;
+            this.btnVerDetalleFactura.Location = new System.Drawing.Point(3, 35);
+            this.btnVerDetalleFactura.Name = "btnVerDetalleFactura";
+            this.btnVerDetalleFactura.Size = new System.Drawing.Size(130, 26);
+            this.btnVerDetalleFactura.TabIndex = 1;
+            this.btnVerDetalleFactura.Text = "Ver detalle de Factura";
+            this.btnVerDetalleFactura.UseVisualStyleBackColor = true;
+            this.btnVerDetalleFactura.Click += new System.EventHandler(this.btnVerDetalleFactura_Click);
             // 
-            // dataGridViewTextBoxColumn8
+            // tbcGeneral
             // 
-            this.dataGridViewTextBoxColumn8.HeaderText = "IdTipoPaciente";
-            this.dataGridViewTextBoxColumn8.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            this.dataGridViewTextBoxColumn8.Visible = false;
-            this.dataGridViewTextBoxColumn8.Width = 104;
+            this.tbcGeneral.Controls.Add(this.tpFacturar);
+            this.tbcGeneral.Controls.Add(this.tpRevision);
+            this.tbcGeneral.Controls.Add(this.tpInstituciones);
+            this.tbcGeneral.Controls.Add(this.tpEgresos);
+            this.tbcGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbcGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbcGeneral.ItemSize = new System.Drawing.Size(150, 18);
+            this.tbcGeneral.Location = new System.Drawing.Point(0, 0);
+            this.tbcGeneral.Multiline = true;
+            this.tbcGeneral.Name = "tbcGeneral";
+            this.tbcGeneral.SelectedIndex = 0;
+            this.tbcGeneral.Size = new System.Drawing.Size(1414, 623);
+            this.tbcGeneral.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tbcGeneral.TabIndex = 1;
+            this.tbcGeneral.Visible = false;
+            this.tbcGeneral.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
-            // Orden
+            // panel3
             // 
-            this.Orden.HeaderText = "TipoPaciente";
-            this.Orden.MinimumWidth = 6;
-            this.Orden.Name = "Orden";
-            this.Orden.ReadOnly = true;
-            this.Orden.Visible = false;
-            this.Orden.Width = 95;
+            this.panel3.Controls.Add(this.tbcGeneral);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 51);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1414, 623);
+            this.panel3.TabIndex = 10;
             // 
-            // dataGridViewTextBoxColumn10
+            // tsbAperturarCaja
             // 
-            this.dataGridViewTextBoxColumn10.HeaderText = "status";
-            this.dataGridViewTextBoxColumn10.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            this.dataGridViewTextBoxColumn10.Visible = false;
-            this.dataGridViewTextBoxColumn10.Width = 60;
+            this.tsbAperturarCaja.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbAperturarCaja.Image = global::INV_SYS.Properties.Resources.caja_registradora;
+            this.tsbAperturarCaja.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbAperturarCaja.Name = "tsbAperturarCaja";
+            this.tsbAperturarCaja.Size = new System.Drawing.Size(24, 24);
+            this.tsbAperturarCaja.Text = "Aperturar caja";
+            this.tsbAperturarCaja.Click += new System.EventHandler(this.aperturarCajaToolStripMenuItem_Click);
             // 
-            // dataGridViewTextBoxColumn11
+            // tsbCerrarSesion
             // 
-            this.dataGridViewTextBoxColumn11.HeaderText = "Sucursal";
-            this.dataGridViewTextBoxColumn11.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.ReadOnly = true;
-            this.dataGridViewTextBoxColumn11.Visible = false;
-            this.dataGridViewTextBoxColumn11.Width = 73;
+            this.tsbCerrarSesion.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbCerrarSesion.Image = global::INV_SYS.Properties.Resources.receipt_close;
+            this.tsbCerrarSesion.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbCerrarSesion.Name = "tsbCerrarSesion";
+            this.tsbCerrarSesion.Size = new System.Drawing.Size(24, 24);
+            this.tsbCerrarSesion.Text = "tsbCerrarCaja";
+            this.tsbCerrarSesion.ToolTipText = "Cerrar caja";
+            this.tsbCerrarSesion.Click += new System.EventHandler(this.cerrarCajaToolStripMenuItem_Click);
+            // 
+            // aperturarCajaToolStripMenuItem
+            // 
+            this.aperturarCajaToolStripMenuItem.Image = global::INV_SYS.Properties.Resources.caja_registradora;
+            this.aperturarCajaToolStripMenuItem.Name = "aperturarCajaToolStripMenuItem";
+            this.aperturarCajaToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.aperturarCajaToolStripMenuItem.Text = "Aperturar caja";
+            this.aperturarCajaToolStripMenuItem.Click += new System.EventHandler(this.aperturarCajaToolStripMenuItem_Click);
+            // 
+            // cerrarCajaToolStripMenuItem
+            // 
+            this.cerrarCajaToolStripMenuItem.Image = global::INV_SYS.Properties.Resources.receipt_close;
+            this.cerrarCajaToolStripMenuItem.Name = "cerrarCajaToolStripMenuItem";
+            this.cerrarCajaToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.cerrarCajaToolStripMenuItem.Text = "Cerrar caja";
+            this.cerrarCajaToolStripMenuItem.Click += new System.EventHandler(this.cerrarCajaToolStripMenuItem_Click);
             // 
             // frmInvSys
             // 

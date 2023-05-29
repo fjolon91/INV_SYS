@@ -6,10 +6,10 @@
       <Value Profile="(Default)">logo.png</Value>
     </Setting>
     <Setting Name="Conexion" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Data Source=localhost\SQLEXPRESS2019; Initial Catalog= CAJA_TM; Persist Security Info= true; User id=sa; Password=superusuariolabymed</Value>
+      <Value Profile="(Default)">Data Source=localhost\SQLEXPRESS2019; Initial Catalog= CAJA_TM; Persist Security Info= true; User id=sa; Password=P@ssw0rd</Value>
     </Setting>
     <Setting Name="conexionExterna" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Data Source=localhost\SQLEXPRESS2019; Initial Catalog= INTER; Persist Security Info= true; User id=sa; Password=superusuariolabymed</Value>
+      <Value Profile="(Default)">Data Source=localhost\SQLEXPRESS2019; Initial Catalog= INTER; Persist Security Info= true; User id=sa; Password=P@ssw0rd</Value>
     </Setting>
   </Settings>
 </SettingsFile>

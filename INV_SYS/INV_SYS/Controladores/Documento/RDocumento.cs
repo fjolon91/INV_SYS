@@ -14,10 +14,8 @@ namespace INV_SYS
         {
             using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
             {
-
                 SqlCommand query = new SqlCommand(string.Format(@"SELECT MAX(NoDocumento) as UltimoDocumento 
                                                                   FROM DOCUMENTO WHERE tipoDocumento='" + tipo + "' and serieDocumento = '" + serie + "' and sucursal ='" + sucursal + "'"), cnn);
-
                 DataTable dt = new DataTable();
                 dt.Load(query.ExecuteReader());
                 return dt;
@@ -29,16 +27,27 @@ namespace INV_SYS
         {
             using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
             {
-
                 SqlCommand query = new SqlCommand(string.Format(@"SELECT tipoDocumento,SerieDocumento,NoDocumento,Sucursal 
                                                                   FROM DOCUMENTO WHERE tipoDocumento='RC' AND tipoReferencia='" + tipo + "' and referencia = '" + referencia + "' and especialidadReferencia ='" + especialidRef + "'"), cnn);
-
                 DataTable dt = new DataTable();
                 dt.Load(query.ExecuteReader());
                 return dt;
             }
         }
 
+        public static DataTable existeDocumento(string tipo, string serie, string sucursal, string documento)
+        {
+            using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
+            {
+
+                SqlCommand query = new SqlCommand(string.Format(@"SELECT *
+                                                                  FROM DOCUMENTO WHERE tipoDocumento='" + tipo + "' and serieDocumento = '" + serie + "' and sucursal ='" + sucursal + "' and NoDocumento=" + documento + ""), cnn);
+
+                DataTable dt = new DataTable();
+                dt.Load(query.ExecuteReader());
+                return dt;
+            }
+        }
 
         public static DataTable verificarDocumento(string tipo, string serie, string sucursal, string documento)
         {

@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using System.Xml;
 using System.Net;
 using System.Net.Sockets;
+using INV_SYS.Formularios;
 
 namespace INV_SYS
 {
@@ -334,7 +335,9 @@ namespace INV_SYS
                             if (RAdmision.cambiarStatusAdmision(tipoAdmision, admision, "LABO", "F", false, cmbSucursal.SelectedValue.ToString(), this.idAdmision) > 0)
                                 MessageBox.Show("Orden: " + admision + " Facturada con exito", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }                        
-                    }                    
+                    }
+                    frmImpresionDocumento imprimir = new frmImpresionDocumento(1, documento.tipoDocumento, documento.SerieDocumento, documento.NoDocumento.ToString(), documento.sucursal);
+                    imprimir.ShowDialog(this);
                 }
 
             }            
