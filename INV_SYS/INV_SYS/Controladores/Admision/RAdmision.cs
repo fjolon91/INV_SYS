@@ -61,6 +61,7 @@ namespace INV_SYS
                                                                                     INNER JOIN ESPECIALIDAD E ON E.especialidad = A.especialidad
                                                                                     LEFT JOIN TIPO_PACIENTE CTP ON CTP.tipoPaciente = A.tipoPaciente                                                                                    
                                                                                     WHERE A.Especialidad ='LABO' AND A.status<>'F' AND (A.cliente is null or A.cliente='') AND A.fechaRecepcion BETWEEN '" + ini.ToString("yyyyMMdd HH:mm:ss") + "' AND '" + fin.ToString("yyyyMMdd HH:mm:ss") + "' " +
+                                                                                    "" +
                                                                                     "GROUP BY A.Admision,A.tipoAdmision, A.FechaRecepcion,E.especialidad,A.sucursal, E.descripcion ,CTP.tipoPaciente, CTP.descripcion,A.paciente, A.nombre,A.fechaNacimiento,G.descripcion ,A.Medico, A.status, A.idAdmision " +
                                                                                     "ORDER BY A.FechaRecepcion, A.tipoAdmision, A.admision"), cnn);
 
@@ -172,6 +173,19 @@ namespace INV_SYS
             using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
             {
                 SqlCommand query = new SqlCommand(string.Format(@"UPDATE [dbo].[ADMISION] SET STATUS='" + status + "' , altaMedica='" + altaMedica + "' ,fechaFinProceso=getDate() WHERE tipoAdmision='" + tipoAdmision + "' and Admision='" + Admision + "' and especialidad= '" + especialidad + "' and sucursal='" + sucursal + "' AND idAdmision = '" + idAdmision + "'"), cnn);
+                retorno = query.ExecuteNonQuery();
+                cnn.Close();
+            }
+
+            return retorno;
+        }
+
+        public static int cambiarStatusAdmisionInstitucion(string tipoAdmision, string Admision, string especialidad, string status, bool altaMedica, string sucursal, string idCliente, string idOrden)
+        {
+            int retorno;
+            using (SqlConnection cnn = RConexion.Conectando(Properties.Settings.Default.Conexion))
+            {
+                SqlCommand query = new SqlCommand(string.Format(@"UPDATE [dbo].[ADMISION] SET STATUS='" + status + "' , altaMedica='" + altaMedica + "' ,fechaFinProceso=getDate() WHERE tipoAdmision='" + tipoAdmision + "' and Admision='" + Admision + "' and especialidad= '" + especialidad + "' and sucursal='" + sucursal + "' AND cliente = '" + idCliente + "' and idAdmision = " + idOrden + ""), cnn);
                 retorno = query.ExecuteNonQuery();
                 cnn.Close();
             }

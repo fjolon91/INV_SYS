@@ -36,6 +36,7 @@ namespace INV_SYS
         private double totalInstitucion;
         private string idAdmision;
         private List<string> ordenes;
+        private List<string> idOrdenes;
 
         public frmDocumento(string admision, string tipoAdmision, string especialidad, string user, string idSucursal,string modo, string idAdmision)
         {
@@ -62,6 +63,8 @@ namespace INV_SYS
             this.totalInstitucion = totalInstitucion;
             estacion = Environment.MachineName;
             this.ordenes = ordenes;
+            this.idOrdenes = idOrdenes;
+
             iniciarCargarCombos();
             cargarServicio();
             cargarDatosInstitucion();
@@ -318,13 +321,15 @@ namespace INV_SYS
                         {
                             string _tipoAdmision = "";
                             string _admision = "";
-                            string _cliente = "";
+                            string _cliente = documento.cliente;
+                            string _idOrden = "";
                             for (int r=0; r< ordenes.Count; r++)
                             {
                                 _tipoAdmision = idSucursal;
                                 _admision = ordenes[r];
-                                _cliente = documento.cliente;
-                                RAdmision.cambiarStatusAdmision(_tipoAdmision, _admision, "LABO", "F", false, cmbSucursal.SelectedValue.ToString(), this.idAdmision);
+                                _idOrden = idOrdenes[r];
+
+                                RAdmision.cambiarStatusAdmisionInstitucion(_tipoAdmision, _admision, "LABO", "F", false, cmbSucursal.SelectedValue.ToString(), _cliente, _idOrden);
                             }
                             MessageBox.Show("Ordenes facturadas con exito", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
